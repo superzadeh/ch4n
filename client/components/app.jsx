@@ -14,7 +14,7 @@ App = React.createClass({
     muiTheme: React.PropTypes.object
   },
   getInitialState() {
-    return {open: false, ActiveBoard: "p"};
+    return {open: false, ActiveBoard: "wg"};
   },
   getChildContext() {
     return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
