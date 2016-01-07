@@ -29,7 +29,7 @@ Boards = React.createClass({
   },
   render() {
     return (
-      <DropDownMenu value={this.props.ActiveBoard} onChange={this.handleChange}>
+      <DropDownMenu value={this.props.activeBoard} onChange={this.handleChange}>
         {this.state.boards.map((board, i) => {
           return (
             <MenuItem value={board.board} primaryText={board.title} key={i}></MenuItem>

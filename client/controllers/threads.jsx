@@ -4,10 +4,10 @@ Threads = React.createClass({
   },
   componentDidMount() {
     console.log("Threads component did mount");
-    this.loadThreads(this.props.ActiveBoard);
+    this.loadThreads(this.props.activeBoard);
   },
   componentWillReceiveProps(nextProps) {
-    this.loadThreads(nextProps.ActiveBoard);
+    this.loadThreads(nextProps.activeBoard);
   },
   loadThreads(board) {
     var self = this;
@@ -15,7 +15,7 @@ Threads = React.createClass({
       if (err) {
         console.log(err);
       } else {
-        console.log(`Component retrieved threads of board ${self.props.ActiveBoard}:`);
+        console.log(`Component retrieved threads of board ${self.props.activeBoard}:`);
         console.log(response);
         self.setState({threads: response.data[0].threads});
       }
@@ -29,7 +29,7 @@ Threads = React.createClass({
     return (
       <div className="threadsContainer">
         {this.state.threads.map((thread, i) => {
-          return (<Thread key={i} Id={thread.no} ThreadImageUrl={`http://i.4cdn.org/${this.props.ActiveBoard}/${thread.tim}${thread.ext}`} Title={thread.sub} Text={thread.com} ViewThreadHandler={this.viewThread}/>);
+          return (<Thread key={i} id={thread.no} threadImageUrl={`http://i.4cdn.org/${this.props.activeBoard}/${thread.tim}${thread.ext}`} title={thread.sub} text={thread.com} viewThreadHandler={this.viewThread}/>);
         })}
       </div>
     );

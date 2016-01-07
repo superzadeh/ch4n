@@ -14,23 +14,23 @@ App = React.createClass({
     muiTheme: React.PropTypes.object
   },
   getInitialState() {
-    return {open: false, ActiveBoard: "wg"};
+    return {open: false, activeBoard: "wg"};
   },
   getChildContext() {
     return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
   },
   boardChangedHandler(boardName) {
-    this.setState({ActiveBoard: boardName});
+    this.setState({activeBoard: boardName});
   },
   render() {
     return (
       <AppCanvas>
         <Toolbar>
           <ToolbarGroup firstChild={true} float="left">
-            <Boards ActiveBoard={this.state.ActiveBoard} onBoardChanged={this.boardChangedHandler}/>
+            <Boards activeBoard={this.state.activeBoard} onBoardChanged={this.boardChangedHandler}/>
           </ToolbarGroup>
         </Toolbar>
-        <Threads ActiveBoard={this.state.ActiveBoard}/>
+        <Threads activeBoard={this.state.activeBoard}/>
       </AppCanvas>
     );
   }
