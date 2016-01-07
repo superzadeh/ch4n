@@ -1,24 +1,21 @@
 Threads = React.createClass({
-  propTypes: {
-    BoardName: React.PropTypes.string
-  },
   getInitialState() {
-    return {threads: []};
+    return {threads: [], BoardName: "v"};
   },
-  getDefaultProps() {
-    var defaultProps = {
-      BoardName: "v"
-    };
-    return defaultProps;
+  componentWillMount(){
+    if (window.location.hash) {
+      this.setState({BoardName: window.location.hash.replace("#", "")});
+    }
   },
-  componentWillMount() {
-    console.log("Threads component will mount");
+  componentDidMount() {
+    console.log("Threads component did mount");
+
     var self = this;
-    Meteor.call('GetCatalog', this.props.BoardName, function(err, response) {
+    Meteor.call('GetCatalog', self.state.BoardName, function(err, response) {
       if (err) {
         console.log(err);
       } else {
-        console.log("Component retrieved threads:");
+        console.log(`Component retrieved threads of board ${self.state.BoardName}:`);
         console.log(response);
         self.setState({threads: response.data[0].threads});
       }
@@ -32,12 +29,7 @@ Threads = React.createClass({
     return (
       <div className="threadsContainer">
         {this.state.threads.map((thread, i) => {
-          return (
-            <Thread key={i} Id={thread.no}
-            ThreadImageUrl={`http://t.4cdn.org/${this.props.BoardName}/src/${thread.tim}.jpg`}
-            Title={thread.sub}
-            Text={thread.com}
-            ViewThreadHandler={this.viewThread}/>);
+          return (<Thread key={i} Id={thread.no} ThreadImageUrl={`http://i.4cdn.org/${this.state.BoardName}/${thread.tim}${thread.ext}`} Title={thread.sub} Text={thread.com} ViewThreadHandler={this.viewThread}/>);
         })}
       </div>
     );
