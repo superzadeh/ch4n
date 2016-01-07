@@ -2,14 +2,15 @@ Threads = React.createClass({
   getInitialState() {
     return {threads: [], BoardName: "v"};
   },
-  componentWillMount(){
+  componentWillMount() {
     if (window.location.hash) {
-      this.setState({BoardName: window.location.hash.replace("#", "")});
+      this.setState({
+        BoardName: window.location.hash.replace("#", "")
+      });
     }
   },
   componentDidMount() {
     console.log("Threads component did mount");
-
     var self = this;
     Meteor.call('GetCatalog', self.state.BoardName, function(err, response) {
       if (err) {

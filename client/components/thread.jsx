@@ -33,7 +33,9 @@ Thread = React.createClass({
   render() {
     return (
       <Card id={this.props.Id} className="thread">
-        <CardTitle>{this.props.Title}</CardTitle>
+        <CardTitle><div dangerouslySetInnerHTML={{
+          __html: this.props.Title
+        }}/></CardTitle>
         <CardMedia style={{
           padding: "10px"
         }}>
