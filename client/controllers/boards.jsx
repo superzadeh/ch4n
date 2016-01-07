@@ -26,6 +26,7 @@ Boards = React.createClass({
   },
   handleChange(e, index, value) {
     this.props.onBoardChanged(value);
+    window.location.hash = `#${value}`;
   },
   render() {
     return (

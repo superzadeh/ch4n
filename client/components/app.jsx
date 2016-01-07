@@ -14,7 +14,10 @@ App = React.createClass({
     muiTheme: React.PropTypes.object
   },
   getInitialState() {
-    return {open: false, activeBoard: "wg"};
+    var board = window.location.hash
+      ? window.location.hash.replace("#", "")
+      : "biz";
+    return {open: false, activeBoard: board};
   },
   getChildContext() {
     return {muiTheme: ThemeManager.getMuiTheme(DarkRawTheme)};
