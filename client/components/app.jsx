@@ -7,7 +7,7 @@ const {
   ToolbarGroup,
   ToolbarTitle
 } = mui;
-const {ThemeManager, LightRawTheme} = Styles;
+const {ThemeManager, DarkRawTheme} = Styles;
 
 App = React.createClass({
   childContextTypes: {
@@ -17,7 +17,7 @@ App = React.createClass({
     return {open: false, activeBoard: "wg"};
   },
   getChildContext() {
-    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
+    return {muiTheme: ThemeManager.getMuiTheme(DarkRawTheme)};
   },
   boardChangedHandler(boardName) {
     this.setState({activeBoard: boardName});
