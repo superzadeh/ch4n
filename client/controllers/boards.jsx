@@ -1,6 +1,9 @@
-const {LeftNav, FlatButton, MenuItem} = mui;
+const {MenuItem, DropDownMenu} = mui;
 
 Boards = React.createClass({
+  propTypes: {
+    onBoardChanged: React.PropTypes.func
+  },
   getInitialState() {
     return {boards: []};
   },
@@ -17,16 +20,18 @@ Boards = React.createClass({
       }
     });
   },
+  handleChange(e, index, value) {
+    this.props.onBoardChanged(value);
+  },
   render() {
     return (
-      <LeftNav open={this.props.open}>
-        <FlatButton label="back" onClick={this.props.handleToggle}/>
+      <DropDownMenu value={this.props.ActiveBoard} onChange={this.handleChange}>
         {this.state.boards.map((board, i) => {
           return (
-            <MenuItem key={i}>{board.title}</MenuItem>
+            <MenuItem value={board.board} primaryText={board.title} key={i}></MenuItem>
           );
         })}
-      </LeftNav>
+      </DropDownMenu>
     );
   }
 });

@@ -1,4 +1,12 @@
-const {AppCanvas, AppBar, Styles, RaisedButton} = mui;
+const {
+  AppCanvas,
+  AppBar,
+  Styles,
+  RaisedButton,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarTitle
+} = mui;
 const {ThemeManager, LightRawTheme} = Styles;
 
 App = React.createClass({
@@ -6,26 +14,23 @@ App = React.createClass({
     muiTheme: React.PropTypes.object
   },
   getInitialState() {
-    return {open: false};
+    return {open: false, ActiveBoard: "p"};
   },
   getChildContext() {
     return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
   },
-  handleToggle() {
-    this.setState({
-      open: !this.state.open
-    });
+  boardChangedHandler(boardName) {
+    this.setState({ActiveBoard: boardName});
   },
   render() {
     return (
       <AppCanvas>
-        <AppBar title="ch4n" onLeftIconButtonTouchTap={this.handleToggle}/>
-        <Boards open={this.state.open} handleToggle={this.handleToggle}/>
-        <div style={{
-          padding: '80px'
-        }}>
-          <Threads/>
-        </div>
+        <Toolbar>
+          <ToolbarGroup firstChild={true} float="left">
+            <Boards ActiveBoard={this.state.ActiveBoard} onBoardChanged={this.boardChangedHandler}/>
+          </ToolbarGroup>
+        </Toolbar>
+        <Threads ActiveBoard={this.state.ActiveBoard}/>
       </AppCanvas>
     );
   }
