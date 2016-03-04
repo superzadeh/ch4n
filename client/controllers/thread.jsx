@@ -14,11 +14,15 @@ Thread = React.createClass({
   },
   
   componentDidMount() {
-    this.loadComments(this.props.board, this.props.threadNumber);
+    refresh();
   },
   
   componentWillReceiveProps(nextProps) {
     this.loadComments(nextProps.board, nextProps.threadNumber);
+  },
+  
+  refresh() {
+    this.loadComments(this.props.board, this.props.threadNumber);
   },
   
   loadComments(board, threadNumber) {
