@@ -1,23 +1,33 @@
-Threads = React.createClass({
+const {
+  RaisedButton
+} = mui;
+
+
+Thread = React.createClass({
+  propTypes : {
+    board: React.PropTypes.string,
+    threadNumber: React.PropTypes.string
+  },
+  
   getInitialState() {
-    return {posts: []};
+    return { posts: [] };
   },
   
   componentDidMount() {
-    this.loadThreads(this.props.activeBoard);
+    this.loadComments(this.props.board, this.props.threadNumber);
   },
   
   componentWillReceiveProps(nextProps) {
-    this.loadThreads(nextProps.activeBoard);
+    this.loadComments(nextProps.board, nextProps.threadNumber);
   },
   
-  loadThreads(board) {
+  loadComments(board, threadNumber) {
     var self = this;
-    Meteor.call('GetCatalog', board, function(err, response) {
+    Meteor.call('GetThread', board, threadNumber, function(err, response) {
       if (err) {
         console.log(err);
       } else {
-        console.log(`Component retrieved posts of thread ${self.props.threadId}:`);
+        console.log(`Component retrieved posts of thread ${self.props.threadNumber}:`);
         console.log(response);
       }
     });
@@ -25,7 +35,10 @@ Threads = React.createClass({
   
   render() {
     return (
-      <div>       
+      <div>
+        <RaisedButton label="return" onClick={this.props.returnHandler}/>
+        <br/>
+        <span>Wow, much thread</span>
       </div>
     );
   }

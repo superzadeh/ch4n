@@ -1,8 +1,11 @@
 Meteor.methods({
-  GetCatalog: function (boardName) {
-    return HTTP.get(`http://a.4cdn.org/${boardName}/catalog.json`);
+  GetCatalog: function (board) {
+    return HTTP.get(`http://a.4cdn.org/${board}/catalog.json`);
   },
-  GetBoards: function (boardName) {
+  GetBoards: function (board) {
     return HTTP.get(`http://a.4cdn.org/boards.json`);
+  },
+  GetThread : function(board, threadId) {
+    return  HTTP.get(`http(s)://a.4cdn.org/${board}/thread/${threadId}.json`);
   }
 });
