@@ -10,7 +10,7 @@ const {
   Styles
 } = mui;
 
-Thread = React.createClass({
+ThreadCard = React.createClass({
   propTypes: {
     id: React.PropTypes.number,
     title: React.PropTypes.string,
@@ -18,9 +18,11 @@ Thread = React.createClass({
     threadImageUrl: React.PropTypes.string,
     viewThreadHandler: React.PropTypes.func
   },
+  
   getInitialState() {
     return {imageLoaded: false};
   },
+  
   getDefaultProps() {
     var defaultProps = {
       tryitle: "",
@@ -30,9 +32,11 @@ Thread = React.createClass({
     
     return defaultProps;
   },
+  
   onImageLoaded() {
     this.setState({ imageLoaded : true });
   },
+  
   render() {
     return (
       <Card id={this.props.id} className="thread">        
@@ -52,7 +56,6 @@ Thread = React.createClass({
         
         <CardActions>
           <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
-          <RaisedButton label="Expand"/>
         </CardActions>        
       </Card>
     );
