@@ -6,6 +6,7 @@ const {
   CardMedia,
   CardTitle,
   CardActions,
+  CircularProgress, 
   Styles
 } = mui;
 
@@ -17,6 +18,9 @@ Thread = React.createClass({
     threadImageUrl: React.PropTypes.string,
     viewThreadHandler: React.PropTypes.func
   },
+  getInitialState() {
+    return {imageLoaded: false};
+  },
   getDefaultProps() {
     var defaultProps = {
       tryitle: "",
@@ -26,25 +30,30 @@ Thread = React.createClass({
     
     return defaultProps;
   },
+  onImageLoaded() {
+    this.setState({ imageLoaded : true });
+  },
   render() {
     return (
-      <Card id={this.props.id} className="thread">
-        <CardText><div dangerouslySetInnerHTML={{
-        __html: this.props.title
-      }}/></CardText>
-        <CardMedia style={{
-          padding: "10px"
-        }}>
-          <img src={this.props.threadImageUrl} alt="Loading..."/>
+      <Card id={this.props.id} className="thread">        
+        <CardText className="title"><div dangerouslySetInnerHTML={{ __html: this.props.title }}/>
+        </CardText>
+      
+        <CardMedia className="media">     
+          <div>
+            <img src={this.props.threadImageUrl} onLoad={this.onImageLoaded} /> 
+            { this.state.imageLoaded ? null : <CircularProgress  /> }
+          </div>        
         </CardMedia>
+        
         <CardText>
-          <div className="content" dangerouslySetInnerHTML={{
-            __html: this.props.text
-          }}/></CardText>
+          <div className="content" dangerouslySetInnerHTML={{ __html: this.props.text }}/>
+        </CardText>
+        
         <CardActions>
           <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
-          <RaisedButton label="Post"/>
-        </CardActions>
+          <RaisedButton label="Expand"/>
+        </CardActions>        
       </Card>
     );
   }

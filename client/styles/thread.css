@@ -1,20 +1,50 @@
-.thread {
-  margin: 20px 1%;
-  max-width: 30%;
-  float: left;
-}
-.thread .content {
-  max-height: 200px;
-  overflow: hidden;
-}
-@media screen and (max-width: 420px) {
-  .thread {
-      max-width: 98%;
-  }
+.threadsContainer {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
 }
 
-@media screen and (max-width: 1024px) {
-  .thread {
-      max-width: 48%;
-  }
+.thread {
+    width: 31%;
+    display: block;
+    float: left;
+    margin: 2% 0 2% 2%;
+    height: 455px;
+}
+
+.thread:first-child {
+    margin-left: 0;
+}
+
+.thread .title {
+    height: 15px;
+    overflow: hidden;
+}
+
+.thread .media {
+    padding: 10px;
+}
+
+.thread .media img {
+    max-width: 100%;
+    height: 150px;
+}
+
+.thread .content {
+    height: 150px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 480px) {
+    .thread {
+        margin: 1% 0 1% 0%;
+        width: 100%;
+        height: auto;
+    }
+
+    .thread .content {
+        height: auto;
+        max-height: 150px;
+        overflow: hidden;
+    }
 }
