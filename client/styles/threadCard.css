@@ -1,10 +1,10 @@
-.threadsContainer {
+.threadCardsContainer {
     clear: both;
     padding: 0px;
     margin: 0px;
 }
 
-.thread {
+.threadCard {
     width: 31%;
     display: block;
     float: left;
@@ -12,37 +12,37 @@
     height: 455px;
 }
 
-.thread:first-child {
+.threadCard:first-child {
     margin-left: 0;
 }
 
-.thread .title {
+.threadCard .title {
     height: 15px;
     overflow: hidden;
 }
 
-.thread .media {
+.threadCard .media {
     padding: 10px;
 }
 
-.thread .media img {
+.threadCard .media img {
     max-width: 100%;
     height: 150px;
 }
 
-.thread .content {
+.threadCard .content {
     height: 150px;
     overflow: hidden;
 }
 
 @media only screen and (max-width: 480px) {
-    .thread {
+    .threadCard {
         margin: 1% 0 1% 0%;
         width: 100%;
         height: auto;
     }
 
-    .thread .content {
+    .threadCard .content {
         height: auto;
         max-height: 150px;
         overflow: hidden;

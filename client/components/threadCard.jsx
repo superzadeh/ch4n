@@ -39,7 +39,7 @@ ThreadCard = React.createClass({
   
   render() {
     return (
-      <Card id={this.props.id} className="thread">        
+      <Card id={this.props.id} className="threadCard">        
         <CardText className="title"><div dangerouslySetInnerHTML={{ __html: this.props.title }}/>
         </CardText>
       

@@ -4,7 +4,6 @@ Threads = React.createClass({
   },
   
   componentDidMount() {
-    console.log("Threads component did mount");
     this.loadThreads(this.props.activeBoard);
   },
   
@@ -18,8 +17,6 @@ Threads = React.createClass({
       if (err) {
         console.log(err);
       } else {
-        console.log(`Component retrieved threads of board ${self.props.activeBoard}:`);
-        console.log(response);
         self.setState({threads: response.data[0].threads});
       }
     });
@@ -32,7 +29,7 @@ Threads = React.createClass({
   
   render() {
     return (
-      <div className="threadsContainer">
+      <div className="threadCardsContainer">
         {this.state.threads.map((thread, i) => {
           return (
             <ThreadCard key={'thread' + i} 
