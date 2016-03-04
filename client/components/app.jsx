@@ -7,7 +7,7 @@ const {
   ToolbarGroup,
   ToolbarTitle
 } = mui;
-const {ThemeManager, DarkRawTheme} = Styles;
+const {ThemeManager, LightRawTheme} = Styles;
 
 App = React.createClass({
   childContextTypes: {
@@ -20,7 +20,7 @@ App = React.createClass({
     return {open: false, activeBoard: board};
   },
   getChildContext() {
-    return {muiTheme: ThemeManager.getMuiTheme(DarkRawTheme)};
+    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
   },
   boardChangedHandler(boardName) {
     this.setState({activeBoard: boardName});
@@ -30,7 +30,9 @@ App = React.createClass({
       <AppCanvas>
         <Toolbar>
           <ToolbarGroup firstChild={true} float="left">
-            <Boards activeBoard={this.state.activeBoard} onBoardChanged={this.boardChangedHandler}/>
+            <Boards
+              activeBoard={this.state.activeBoard}
+              onBoardChanged={this.boardChangedHandler}/>
           </ToolbarGroup>
         </Toolbar>
         <Threads activeBoard={this.state.activeBoard}/>

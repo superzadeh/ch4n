@@ -1,3 +1,16 @@
-.thread{
-  margin: 20px 0px
+.thread {
+  margin: 20px 1%;
+  max-width: 30%;
+  float: left;
+}
+
+@media screen and (max-width: 420px) {
+  .thread {
+      max-width: 98%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .thread {
+      max-width: 48%;
+  }
 }
