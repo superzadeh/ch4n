@@ -23,6 +23,7 @@ Thread = React.createClass({
       threadImageUrl: "1.png",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio."
     };
+    
     return defaultProps;
   },
   render() {
@@ -37,7 +38,7 @@ Thread = React.createClass({
           <img src={this.props.threadImageUrl} alt="Loading..."/>
         </CardMedia>
         <CardText>
-          <div dangerouslySetInnerHTML={{
+          <div className="content" dangerouslySetInnerHTML={{
             __html: this.props.text
           }}/></CardText>
         <CardActions>

@@ -3,12 +3,16 @@
   max-width: 30%;
   float: left;
 }
-
+.thread .content {
+  max-height: 200px;
+  overflow: hidden;
+}
 @media screen and (max-width: 420px) {
   .thread {
       max-width: 98%;
   }
 }
+
 @media screen and (max-width: 1024px) {
   .thread {
       max-width: 48%;
