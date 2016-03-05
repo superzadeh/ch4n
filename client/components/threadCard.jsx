@@ -20,8 +20,16 @@ ThreadCard = React.createClass({
     return {imageLoaded: false};
   },
   
+  componentWillReceiveProps(nextProps) {
+    this.setState({ imageLoaded : false });
+  },
+  
   onImageLoaded() {
     this.setState({ imageLoaded : true });
+  },
+  
+  preloader() {
+    return <CircularProgress  />
   },
   
   render() {
@@ -31,10 +39,11 @@ ThreadCard = React.createClass({
         </CardText>
       
         <CardMedia className="media">     
-          <div>
-            <img src={this.props.thumbnail} onLoad={this.onImageLoaded} /> 
-            { this.state.imageLoaded ? null : <CircularProgress  /> }
-          </div>        
+          <ImageLoader
+              src={this.props.thumbnail} 
+              wrapper={React.DOM.div}
+              preloader={this.preloader}>
+          </ImageLoader>
         </CardMedia>
         
         <CardText>
