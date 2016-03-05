@@ -46,7 +46,7 @@ App = React.createClass({
               onBoardChanged={this.boardChangedHandler}/>
           </ToolbarGroup>
           <ToolbarGroup float="right">
-            <IconButton tooltip="Refresh" onClick={this.refresh}>
+            <IconButton onClick={this.refresh}>
               <FontIcon className="material-icons">autorenew</FontIcon>
             </IconButton>
           </ToolbarGroup>
