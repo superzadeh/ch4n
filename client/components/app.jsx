@@ -32,6 +32,11 @@ App = React.createClass({
     this.setState({activeBoard: boardName});
   },
   
+  goHome() {
+    this.refs.threads.showList();
+    this.refresh();
+  },
+  
   refresh() {
     window.scrollTo(0, 0);
     this.refs.threads.refresh();
@@ -47,13 +52,17 @@ App = React.createClass({
               onBoardChanged={this.boardChangedHandler}/>
           </ToolbarGroup>
           <ToolbarGroup float="right">
+            <IconButton onClick={this.goHome}>
+              <FontIcon className="material-icons">home</FontIcon>
+            </IconButton>
             <IconButton onClick={this.refresh}>
               <FontIcon className="material-icons">autorenew</FontIcon>
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
-        <div className="content"></div>
-        <Threads activeBoard={this.state.activeBoard} ref="threads"/>
+        <div className="appContent">
+          <Threads activeBoard={this.state.activeBoard} ref="threads"/>
+        </div>
       </AppCanvas>
     );
   }

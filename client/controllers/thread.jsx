@@ -31,8 +31,7 @@ Thread = React.createClass({
       if (err) {
         console.log(err);
       } else {
-        console.log(`Component retrieved posts of thread ${self.props.threadNumber}:`);
-        console.log(response);
+        self.setState({posts: response.data.posts});
       }
     });
   },
@@ -40,9 +39,15 @@ Thread = React.createClass({
   render() {
     return (
       <div>
-        <RaisedButton label="return" onClick={this.props.returnHandler}/>
-        <br/>
-        <span>Wow, much thread</span>
+        {this.state.posts.map((post, i) => {
+          return (     
+            <PostCard key={'post' + i}
+                  ref={'post' + i} 
+                  post={post} 
+                  thumbnail={`http://t.4cdn.org/${this.props.board}/${post.tim}s.jpg`}
+                  fullimage={`http://t.4cdn.org/${this.props.board}/${post.tim}${post.ext}`} />);
+          })
+       }            
       </div>
     );
   }

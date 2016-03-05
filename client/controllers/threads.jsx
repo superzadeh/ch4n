@@ -16,7 +16,9 @@ Threads = React.createClass({
   },
   
   componentWillReceiveProps(nextProps) {
-    this.loadThreads(nextProps.activeBoard);
+    if (this.isMounted()) {
+      this.loadThreads(nextProps.activeBoard);
+    }
   },
   
   loadThreads(board) {
@@ -32,6 +34,10 @@ Threads = React.createClass({
   
   toggleView(index, thread) {
     this.setState({threadNumber: thread.no, viewingThread: !this.state.viewingThread});
+  },
+  
+  showList() {
+    this.setState({ viewingThread: false });
   },
   
   refresh() {
@@ -50,7 +56,6 @@ Threads = React.createClass({
         if(this.state.viewingThread) {
           return (<Thread board={this.props.activeBoard} 
                       threadNumber={this.state.threadNumber} 
-                      returnHandler={this.toggleView}
                       ref="currentThread" />);
         } else {
           return this.state.threads.map((thread, i) => {

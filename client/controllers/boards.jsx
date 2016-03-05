@@ -14,8 +14,6 @@ Boards = React.createClass({
       if (err) {
         console.log(err);
       } else {
-        console.log(`Retrieved list of boards:`);
-        console.log(response);
         self.setState({
           boards: _.sortBy(response.data.boards, (b) => {
             return b.title;

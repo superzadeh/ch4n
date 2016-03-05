@@ -1,12 +1,17 @@
 Meteor.methods({
   GetCatalog: function (board) {
-    return HTTP.get(`http://a.4cdn.org/${board}/catalog.json`);
+    var uri = `http://a.4cdn.org/${board}/catalog.json`;
+    console.log(`Requesting ${uri}`);
+    return HTTP.get(uri);
   },
   GetBoards: function (board) {
-    return HTTP.get(`http://a.4cdn.org/boards.json`);
+    var uri = `http://a.4cdn.org/boards.json`;
+    console.log(`Requesting ${uri}`);
+    return HTTP.get(uri);
   },
   GetThread : function(board, threadId) {
-    console.log(`http://a.4cdn.org/${board}/thread/${threadId}.json`);
-    return HTTP.get(`http://a.4cdn.org/${board}/thread/${threadId}.json`);
+    var uri = `http://a.4cdn.org/${board}/thread/${threadId}.json`;
+    console.log(`Requesting ${uri}`);
+    return HTTP.get(uri);
   }
 });

@@ -11,10 +11,10 @@ const {
   Styles
 } = mui;
 
-ThreadCard = React.createClass({
+PostCard = React.createClass({
   propTypes: {
-    thread: React.PropTypes.object,
-    viewThreadHandler: React.PropTypes.func
+    post: React.PropTypes.object,
+    viewpostHandler: React.PropTypes.func
   },
   
   getInitialState() {
@@ -26,7 +26,10 @@ ThreadCard = React.createClass({
   },
   
   componentWillReceiveProps(nextProps) {
-    this.setState({ imageLoaded : false, imageUrl : nextProps.thumbnail });
+    if(this.isMounted()) {
+      console.log(nextProps.post);
+      this.setState({ imageLoaded : false, post: nextProps.post, imageUrl : nextProps.thumbnail });
+    }
   },
   
   onImageLoaded() {
@@ -71,10 +74,8 @@ ThreadCard = React.createClass({
             </ImageLoader>
         </Dialog>
         
-        <Card id={this.props.thread.no} className="card">        
-          <CardText className="title"><div dangerouslySetInnerHTML={{ __html: this.props.thread.sub }}/>
-          </CardText>
-        
+        <Card id={this.props.post.no} className="card">        
+
           <CardMedia className="media">   
               <ImageLoader
                   src={this.props.thumbnail} 
@@ -85,12 +86,8 @@ ThreadCard = React.createClass({
           </CardMedia>
           
           <CardText>
-            <div className="content" dangerouslySetInnerHTML={{ __html: this.props.thread.com }}/>
-          </CardText>
-          
-          <CardActions>
-            <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
-          </CardActions>        
+            <div className="content" dangerouslySetInnerHTML={{ __html: this.props.post.com }}/>
+          </CardText>       
         </Card>
       </div>
     );
