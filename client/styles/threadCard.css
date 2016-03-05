@@ -27,7 +27,7 @@
 
 .threadCard .media img {
     max-width: 100%;
-    height: 150px;
+    /*max-height: 150px;*/
 }
 
 .threadCard .content {

@@ -105,10 +105,14 @@ ImageLoader = React.createClass({
       className: this.getClassName(),
     };
 
+    if(this.props.onClick) {
+      wrapperProps.onClick = this.props.onClick;
+    }
+    
     if (this.props.style) {
       wrapperProps.style = this.props.style;
     }
-
+    
     let wrapperArgs = [wrapperProps];
 
     switch (this.state.status) {
