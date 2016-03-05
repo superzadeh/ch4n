@@ -6,6 +6,7 @@ Meteor.methods({
     return HTTP.get(`http://a.4cdn.org/boards.json`);
   },
   GetThread : function(board, threadId) {
-    return  HTTP.get(`http(s)://a.4cdn.org/${board}/thread/${threadId}.json`);
+    console.log(`http://a.4cdn.org/${board}/thread/${threadId}.json`);
+    return HTTP.get(`http://a.4cdn.org/${board}/thread/${threadId}.json`);
   }
 });

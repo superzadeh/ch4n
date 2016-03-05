@@ -7,7 +7,7 @@ Threads = React.createClass({
     return {
       threads: [], 
       viewingThread: false, 
-      threadNumber: null
+      threadNumber: 0
     };
   },
   
@@ -30,8 +30,8 @@ Threads = React.createClass({
     });
   },
   
-  toggleView(event, args) {
-    this.setState({viewingThread: !this.state.viewingThread});
+  toggleView(index, thread) {
+    this.setState({threadNumber: thread.no, viewingThread: !this.state.viewingThread});
   },
   
   refresh() {
@@ -60,7 +60,7 @@ Threads = React.createClass({
                     thread={thread} 
                     thumbnail={`http://t.4cdn.org/${this.props.activeBoard}/${thread.tim}s.jpg`}
                     fullimage={`http://t.4cdn.org/${this.props.activeBoard}/${thread.tim}${thread.ext}`} 
-                    viewThreadHandler={this.toggleView} />);
+                    viewThreadHandler={this.toggleView.bind(this, i, thread)} />);
             })            
         }
       })()}              

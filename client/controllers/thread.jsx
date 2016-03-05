@@ -6,7 +6,7 @@ const {
 Thread = React.createClass({
   propTypes : {
     board: React.PropTypes.string,
-    threadNumber: React.PropTypes.string
+    threadNumber: React.PropTypes.number
   },
   
   getInitialState() {
@@ -14,7 +14,7 @@ Thread = React.createClass({
   },
   
   componentDidMount() {
-    refresh();
+    this.refresh();
   },
   
   componentWillReceiveProps(nextProps) {
