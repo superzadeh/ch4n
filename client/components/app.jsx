@@ -39,7 +39,7 @@ App = React.createClass({
   render() {
     return (
       <AppCanvas>
-        <Toolbar>
+        <Toolbar className="fixed-nav-bar">
           <ToolbarGroup firstChild={true} float="left">
             <Boards
               activeBoard={this.state.activeBoard}
@@ -51,6 +51,7 @@ App = React.createClass({
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
+        <div className="content"></div>
         <Threads activeBoard={this.state.activeBoard} ref="threads"/>
       </AppCanvas>
     );
