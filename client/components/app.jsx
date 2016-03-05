@@ -33,6 +33,7 @@ App = React.createClass({
   },
   
   refresh() {
+    window.scrollTo(0, 0);
     this.refs.threads.refresh();
   },
   
