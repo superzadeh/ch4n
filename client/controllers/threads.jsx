@@ -57,7 +57,7 @@ Threads = React.createClass({
             return (
               <ThreadCard key={'thread' + i} 
                     id={thread.no} 
-                    threadImageUrl={`http://i.4cdn.org/${this.props.activeBoard}/${thread.tim}${thread.ext}`} 
+                    threadImageUrl={`http://t.4cdn.org/${this.props.activeBoard}/${thread.tim}s.jpg`} 
                     title={thread.sub} 
                     text={thread.com} 
                     viewThreadHandler={this.toggleView} />);
