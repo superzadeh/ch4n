@@ -47,3 +47,7 @@
         overflow: hidden;
     }
 }
+
+.modal-image-content img {
+  width: 100%;
+}

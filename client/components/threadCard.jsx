@@ -6,7 +6,8 @@ const {
   CardMedia,
   CardTitle,
   CardActions,
-  CircularProgress, 
+  CircularProgress,
+  Dialog, 
   Styles
 } = mui;
 
@@ -17,7 +18,11 @@ ThreadCard = React.createClass({
   },
   
   getInitialState() {
-    return { imageLoaded: false, imageUrl : this.props.thumbnail };
+    return { 
+      imageLoaded: false, 
+      imageUrl : this.props.thumbnail,
+      open : false 
+    };
   },
   
   componentWillReceiveProps(nextProps) {
@@ -33,36 +38,60 @@ ThreadCard = React.createClass({
   },
   
   togglePreviewImage() {
-    if(this.state.imageUrl === this.props.fullimage) {
-      this.setState({ imageUrl : this.props.thumbnail });
-    } else {
-      this.setState({ imageUrl : this.props.fullimage });  
-    }    
+    this.setState({ open : true });
+  },
+  
+  handleClose() {
+    this.setState({open: false});
   },
 
   render() {
+    const customContentStyle = {
+      width: '100%',
+      height: '450px'
+    };
+
     return (
-      <Card id={this.props.thread.no} className="threadCard">        
-        <CardText className="title"><div dangerouslySetInnerHTML={{ __html: this.props.thread.sub }}/>
-        </CardText>
-      
-        <CardMedia className="media">   
+      <div>            
+        <Dialog
+          actions={[]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          contentStyle={customContentStyle}
+          contentClassName={"modal-image-content"}
+          autoDetectWindowHeight={true}
+          repositionOnUpdate={true}
+          autoScrollBodyContent={true}>
             <ImageLoader
-                src={this.state.imageUrl} 
-                wrapper={React.DOM.div}
-                preloader={this.preloader}
-                onClick={this.togglePreviewImage}>
+              src={this.props.fullimage} 
+              wrapper={React.DOM.div}
+              preloader={this.preloader}
+              onClick={this.handleClose}>
             </ImageLoader>
-        </CardMedia>
+        </Dialog>
+        <Card id={this.props.thread.no} className="threadCard">        
+          <CardText className="title"><div dangerouslySetInnerHTML={{ __html: this.props.thread.sub }}/>
+          </CardText>
         
-        <CardText>
-          <div className="content" dangerouslySetInnerHTML={{ __html: this.props.thread.com }}/>
-        </CardText>
-        
-        <CardActions>
-          <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
-        </CardActions>        
-      </Card>
+          <CardMedia className="media">   
+              <ImageLoader
+                  src={this.props.thumbnail} 
+                  wrapper={React.DOM.div}
+                  preloader={this.preloader}
+                  onClick={this.togglePreviewImage}>
+              </ImageLoader>
+          </CardMedia>
+          
+          <CardText>
+            <div className="content" dangerouslySetInnerHTML={{ __html: this.props.thread.com }}/>
+          </CardText>
+          
+          <CardActions>
+            <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
+          </CardActions>        
+        </Card>
+      </div>
     );
   }
 });
