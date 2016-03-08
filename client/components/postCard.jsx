@@ -7,7 +7,7 @@ const {
   CardTitle,
   CardActions,
   CircularProgress,
-  Dialog, 
+  Dialog,
   Styles
 } = mui;
 
@@ -16,36 +16,36 @@ PostCard = React.createClass({
     post: React.PropTypes.object,
     viewpostHandler: React.PropTypes.func
   },
-  
+
   getInitialState() {
-    return { 
-      imageLoaded: false, 
-      imageUrl : this.props.thumbnail,
-      open : false 
+    return {
+      imageLoaded: false,
+      imageUrl: this.props.thumbnail,
+      open: false
     };
   },
-  
+
   componentWillReceiveProps(nextProps) {
-    if(this.isMounted()) {
+    if (this.isMounted()) {
       console.log(nextProps.post);
-      this.setState({ imageLoaded : false, post: nextProps.post, imageUrl : nextProps.thumbnail });
+      this.setState({ imageLoaded: false, post: nextProps.post, imageUrl: nextProps.thumbnail });
     }
   },
-  
+
   onImageLoaded() {
-    this.setState({ imageLoaded : true });
+    this.setState({ imageLoaded: true });
   },
-  
+
   preloader() {
     return <CircularProgress  />
   },
-  
+
   togglePreviewImage() {
-    this.setState({ open : true });
+    this.setState({ open: true });
   },
-  
+
   handleClose() {
-    this.setState({open: false});
+    this.setState({ open: false });
   },
 
   render() {
@@ -55,7 +55,7 @@ PostCard = React.createClass({
     };
 
     return (
-      <div>            
+      <div>
         <Dialog
           actions={[]}
           modal={false}
@@ -66,28 +66,27 @@ PostCard = React.createClass({
           autoDetectWindowHeight={true}
           repositionOnUpdate={true}
           autoScrollBodyContent={true}>
+          <ImageLoader
+            src={this.props.fullimage}
+            wrapper={React.DOM.div}
+            preloader={this.preloader}
+            onClick={this.handleClose}>
+          </ImageLoader>
+        </Dialog>
+
+        <Card id={this.props.post.no} className="card">
+          <CardMedia className="media">
             <ImageLoader
-              src={this.props.fullimage} 
+              src={this.props.thumbnail}
               wrapper={React.DOM.div}
               preloader={this.preloader}
-              onClick={this.handleClose}>
+              onClick={this.togglePreviewImage}>
             </ImageLoader>
-        </Dialog>
-        
-        <Card id={this.props.post.no} className="card">        
-
-          <CardMedia className="media">   
-              <ImageLoader
-                  src={this.props.thumbnail} 
-                  wrapper={React.DOM.div}
-                  preloader={this.preloader}
-                  onClick={this.togglePreviewImage}>
-              </ImageLoader>
           </CardMedia>
-          
+
           <CardText>
             <div className="content" dangerouslySetInnerHTML={{ __html: this.props.post.com }}/>
-          </CardText>       
+          </CardText>
         </Card>
       </div>
     );

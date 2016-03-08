@@ -1,7 +1,7 @@
 const {MenuItem} = mui;
 
 Board = React.createClass({
-  propTypes : {
+  propTypes: {
     BoardName: React.PropTypes.string
   },
   render() {

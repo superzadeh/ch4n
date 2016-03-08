@@ -5,7 +5,7 @@ Boards = React.createClass({
     onBoardChanged: React.PropTypes.func
   },
   getInitialState() {
-    return {boards: []};
+    return { boards: [] };
   },
   componentDidMount() {
     console.log("Boards component did mount");
@@ -33,7 +33,7 @@ Boards = React.createClass({
           return (
             <MenuItem value={board.board} primaryText={board.title} key={i}></MenuItem>
           );
-        })}
+        }) }
       </DropDownMenu>
     );
   }

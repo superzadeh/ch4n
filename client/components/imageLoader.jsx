@@ -7,7 +7,7 @@ const Status = {
 
 
 ImageLoader = React.createClass({
- propTypes : {
+  propTypes: {
     wrapper: React.PropTypes.func,
     className: React.PropTypes.string,
     style: React.PropTypes.object,
@@ -23,8 +23,8 @@ ImageLoader = React.createClass({
   },
 
   getInitialState() {
-      return {status: this.props.src ? Status.LOADING : Status.PENDING};
-  },  
+    return { status: this.props.src ? Status.LOADING : Status.PENDING };
+  },
 
   componentDidMount() {
     if (this.state.status === Status.LOADING) {
@@ -75,21 +75,21 @@ ImageLoader = React.createClass({
 
   handleLoad(event) {
     this.destroyLoader();
-    this.setState({status: Status.LOADED});
+    this.setState({ status: Status.LOADED });
 
     if (this.props.onLoad) this.props.onLoad(event);
   },
 
   handleError(error) {
     this.destroyLoader();
-    this.setState({status: Status.FAILED});
+    this.setState({ status: Status.FAILED });
 
     if (this.props.onError) this.props.onError(error);
   },
 
   renderImg() {
     const {src, imgProps} = this.props;
-    let props = {src};
+    let props = { src };
 
     for (let k in imgProps) {
       if (imgProps.hasOwnProperty(k)) {
@@ -105,10 +105,10 @@ ImageLoader = React.createClass({
       className: this.getClassName(),
     };
 
-    if(this.props.onClick) {
+    if (this.props.onClick) {
       wrapperProps.onClick = this.props.onClick;
     }
-    
+
     if (this.props.style) {
       wrapperProps.style = this.props.style;
     }

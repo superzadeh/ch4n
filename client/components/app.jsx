@@ -16,32 +16,32 @@ App = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
-  
+
   getInitialState() {
     var board = window.location.hash
       ? window.location.hash.replace("#", "")
       : "biz";
-    return {open: false, activeBoard: board};
+    return { open: false, activeBoard: board };
   },
-  
+
   getChildContext() {
-    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
+    return { muiTheme: ThemeManager.getMuiTheme(LightRawTheme) };
   },
-  
+
   boardChangedHandler(boardName) {
-    this.setState({activeBoard: boardName});
+    this.setState({ activeBoard: boardName });
   },
-  
+
   goHome() {
     this.refs.threads.showList();
     this.refresh();
   },
-  
+
   refresh() {
     window.scrollTo(0, 0);
     this.refs.threads.refresh();
   },
-  
+
   render() {
     return (
       <AppCanvas>
