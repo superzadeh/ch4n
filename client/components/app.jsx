@@ -17,19 +17,16 @@ App = React.createClass({
     muiTheme: React.PropTypes.object
   },
 
+  propTypes: {
+    board: React.PropTypes.string
+  },
+
   getInitialState() {
-    var board = window.location.hash
-      ? window.location.hash.replace("#", "")
-      : "biz";
-    return { open: false, activeBoard: board };
+    return { open: false };
   },
 
   getChildContext() {
     return { muiTheme: ThemeManager.getMuiTheme(LightRawTheme) };
-  },
-
-  boardChangedHandler(boardName) {
-    this.setState({ activeBoard: boardName });
   },
 
   goHome() {
@@ -44,32 +41,27 @@ App = React.createClass({
 
   render() {
     return (
-      <AppCanvas>
-        <Toolbar className="fixed-nav-bar">
-          <ToolbarGroup firstChild={true} float="left">
-            <Boards
-              activeBoard={this.state.activeBoard}
-              onBoardChanged={this.boardChangedHandler}/>
-          </ToolbarGroup>
-          <ToolbarGroup float="right">
-            <IconButton onClick={this.goHome}>
-              <FontIcon className="material-icons">home</FontIcon>
-            </IconButton>
-            <IconButton onClick={this.refresh}>
-              <FontIcon className="material-icons">autorenew</FontIcon>
-            </IconButton>
-          </ToolbarGroup>
-        </Toolbar>
-        <div className="appContent">
-          <Threads activeBoard={this.state.activeBoard} ref="threads"/>
-        </div>
-      </AppCanvas>
+      <div id="react-root">
+        <AppCanvas>
+          <Toolbar className="fixed-nav-bar">
+            <ToolbarGroup firstChild={true} float="left">
+              <Boards
+                activeBoard={this.props.board}/>
+            </ToolbarGroup>
+            <ToolbarGroup float="right">
+              <IconButton onClick={this.goHome}>
+                <FontIcon className="material-icons">home</FontIcon>
+              </IconButton>
+              <IconButton onClick={this.refresh}>
+                <FontIcon className="material-icons">autorenew</FontIcon>
+              </IconButton>
+            </ToolbarGroup>
+          </Toolbar>
+          <div className="app-container">
+            <Threads activeBoard={this.props.board} ref="threads"/>
+          </div>
+        </AppCanvas>
+      </div>
     );
   }
 });
-
-if (Meteor.isClient) {
-  Meteor.startup(() => {
-    ReactDOM.render(< App />, document.getElementById('react-root'));
-  });
-}

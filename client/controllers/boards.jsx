@@ -8,7 +8,6 @@ Boards = React.createClass({
     return { boards: [] };
   },
   componentDidMount() {
-    console.log("Boards component did mount");
     var self = this;
     Meteor.call('GetBoards', function(err, response) {
       if (err) {
@@ -24,7 +23,7 @@ Boards = React.createClass({
   },
   handleChange(e, index, value) {
     this.props.onBoardChanged(value);
-    window.location.hash = `#${value}`;
+    FlowRouter.go(`/${value}`);
   },
   render() {
     return (
