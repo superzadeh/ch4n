@@ -41,27 +41,25 @@ App = React.createClass({
 
   render() {
     return (
-      <div id="react-root">
-        <AppCanvas>
-          <Toolbar className="fixed-nav-bar">
-            <ToolbarGroup firstChild={true} float="left">
-              <Boards
-                activeBoard={this.props.board}/>
-            </ToolbarGroup>
-            <ToolbarGroup float="right">
-              <IconButton onClick={this.goHome}>
-                <FontIcon className="material-icons">home</FontIcon>
-              </IconButton>
-              <IconButton onClick={this.refresh}>
-                <FontIcon className="material-icons">autorenew</FontIcon>
-              </IconButton>
-            </ToolbarGroup>
-          </Toolbar>
-          <div className="app-container">
-            <Threads activeBoard={this.props.board} ref="threads"/>
-          </div>
-        </AppCanvas>
-      </div>
+      <AppCanvas>
+        <Toolbar className="fixed-nav-bar">
+          <ToolbarGroup firstChild={true} float="left">
+            <Boards
+              activeBoard={this.props.board}/>
+          </ToolbarGroup>
+          <ToolbarGroup float="right">
+            <IconButton onClick={this.goHome}>
+              <FontIcon className="material-icons">home</FontIcon>
+            </IconButton>
+            <IconButton onClick={this.refresh}>
+              <FontIcon className="material-icons">autorenew</FontIcon>
+            </IconButton>
+          </ToolbarGroup>
+        </Toolbar>
+        <div className="app-container">
+          <Threads activeBoard={this.props.board} ref="threads"/>
+        </div>
+      </AppCanvas>
     );
   }
 });
