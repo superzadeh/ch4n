@@ -9,5 +9,6 @@ as add NPM support (without all the hackery currently going on).
 - [ ] Add freakin tests
 - [ ] Add Redux and rework existing code
 - [ ] Fix desktop layout issues
+- [ ] Deploy on Galaxy or another provider
 - [ ] Add paging support to browse threads
 - [ ] Add a "Catalog-like" view
