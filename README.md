@@ -9,7 +9,7 @@ as add NPM support (without all the hackery currently going on).
 - [ ] Add freakin tests
 - [ ] Add Redux and rework existing code
 - [ ] Fix desktop layout issues
-- [ ] Deploy on Galaxy or another provider
+- [X] Deploy on ~~Galaxy~~ Heroku & MLab
 - [ ] Update the navigation to a "bottom" action bar, as per the updated Material UI guidelines
 - [ ] Add paging support to browse threads
 - [ ] Add a "Catalog-like" view
