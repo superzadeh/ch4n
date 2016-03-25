@@ -6,6 +6,7 @@ as add NPM support (without all the hackery currently going on).
 
 # TODO
 - [ ] Upgrade to Meteor 1.3
+- [ ] Enable Travis CI
 - [ ] Add freakin tests
 - [ ] Add Redux and rework existing code
 - [ ] Fix desktop layout issues
