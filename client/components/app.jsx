@@ -29,6 +29,10 @@ App = React.createClass({
     return { muiTheme: ThemeManager.getMuiTheme(LightRawTheme) };
   },
 
+  boardChangedHandler(boardName) {
+    this.setState({ activeBoard: boardName });
+  },
+
   goHome() {
     this.refs.threads.showList();
     this.refresh();
@@ -45,7 +49,8 @@ App = React.createClass({
         <Toolbar className="fixed-nav-bar">
           <ToolbarGroup firstChild={true} float="left">
             <Boards
-              activeBoard={this.props.board}/>
+              activeBoard={this.props.board}
+              onBoardChanged={this.boardChangedHandler} />
           </ToolbarGroup>
           <ToolbarGroup float="right">
             <IconButton onClick={this.goHome}>
