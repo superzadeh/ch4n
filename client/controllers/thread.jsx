@@ -1,7 +1,7 @@
-const {
-  RaisedButton
-} = mui;
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
 
+import RaisedButton from 'material-ui/lib/raised-button';
 
 Thread = React.createClass({
   propTypes: {

@@ -1,3 +1,6 @@
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+
 Threads = React.createClass({
   propTypes: {
     activeBoard: React.PropTypes.string

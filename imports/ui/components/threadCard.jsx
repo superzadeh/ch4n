@@ -1,20 +1,20 @@
-const {
-  RaisedButton,
-  Card,
-  CardHeader,
-  CardText,
-  CardMedia,
-  CardTitle,
-  CardActions,
-  CircularProgress,
-  Dialog,
-  Styles
-} = mui;
+import React from 'react';
 
-PostCard = React.createClass({
+import RaisedButton from 'material-ui/lib/raised-button';
+import Styles from 'material-ui/lib/styles';
+import Card from 'material-ui/lib/card/card';
+import CardActions from 'material-ui/lib/card/card-actions';
+import CardHeader from 'material-ui/lib/card/card-header';
+import CardMedia from 'material-ui/lib/card/card-media';
+import CardTitle from 'material-ui/lib/card/card-title';
+import CardText from 'material-ui/lib/card/card-text';
+import CircularProgress from 'material-ui/lib/circular-progress';
+import Dialog from 'material-ui/lib/dialog';
+
+ThreadCard = React.createClass({
   propTypes: {
-    post: React.PropTypes.object,
-    viewpostHandler: React.PropTypes.func
+    thread: React.PropTypes.object,
+    viewThreadHandler: React.PropTypes.func
   },
 
   getInitialState() {
@@ -26,10 +26,7 @@ PostCard = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.isMounted()) {
-      console.log(nextProps.post);
-      this.setState({ imageLoaded: false, post: nextProps.post, imageUrl: nextProps.thumbnail });
-    }
+    this.setState({ imageLoaded: false, imageUrl: nextProps.thumbnail });
   },
 
   onImageLoaded() {
@@ -74,7 +71,10 @@ PostCard = React.createClass({
           </ImageLoader>
         </Dialog>
 
-        <Card id={this.props.post.no} className="card">
+        <Card id={this.props.thread.no} className="card">
+          <CardText className="title"><div dangerouslySetInnerHTML={{ __html: this.props.thread.sub }}/>
+          </CardText>
+
           <CardMedia className="media">
             <ImageLoader
               src={this.props.thumbnail}
@@ -85,8 +85,12 @@ PostCard = React.createClass({
           </CardMedia>
 
           <CardText>
-            <div className="content" dangerouslySetInnerHTML={{ __html: this.props.post.com }}/>
+            <div className="content" dangerouslySetInnerHTML={{ __html: this.props.thread.com }}/>
           </CardText>
+
+          <CardActions>
+            <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
+          </CardActions>
         </Card>
       </div>
     );

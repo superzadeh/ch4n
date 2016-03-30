@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { HTTP } from 'meteor/http';
+
 Meteor.methods({
   GetCatalog: function(board) {
     var uri = `http://a.4cdn.org/${board}/catalog.json`;

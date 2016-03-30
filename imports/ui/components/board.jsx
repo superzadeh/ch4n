@@ -1,4 +1,5 @@
-const {MenuItem} = mui;
+import React from 'react';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 Board = React.createClass({
   propTypes: {

@@ -1,47 +1,43 @@
-const {
-  AppCanvas,
-  AppBar,
-  IconButton,
-  IconStyles,
-  FontIcon,
-  Styles,
-  RaisedButton,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarTitle
-} = mui;
+import React, { Component } from 'react';
+
+import AppCanvas from 'material-ui/lib/app-canvas';
+import AppBar from 'material-ui/lib/app-bar';
+import IconButton from 'material-ui/lib/icon-button';
+import FontIcon from 'material-ui/lib/font-icon';
+import Styles from 'material-ui/lib/styles';
+import RaisedButton from 'material-ui/lib/raised-button';
+import Toolbar from 'material-ui/lib/toolbar/toolbar';
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 const {ThemeManager, LightRawTheme} = Styles;
 
-App = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
+export default class App extends Component {
 
-  propTypes: {
-    board: React.PropTypes.string
-  },
-
-  getInitialState() {
-    return { open: false };
-  },
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
 
   getChildContext() {
     return { muiTheme: ThemeManager.getMuiTheme(LightRawTheme) };
-  },
+  }
 
   boardChangedHandler(boardName) {
     this.setState({ activeBoard: boardName });
-  },
+  }
 
   goHome() {
     this.refs.threads.showList();
     this.refresh();
-  },
+  }
 
   refresh() {
     window.scrollTo(0, 0);
     this.refs.threads.refresh();
-  },
+  }
 
   render() {
     return (
@@ -67,4 +63,10 @@ App = React.createClass({
       </AppCanvas>
     );
   }
-});
+}
+
+App.propTypes = { board: React.PropTypes.string };
+App.defaultProps = { board: 'diy' };
+App.childContextTypes = { muiTheme: React.PropTypes.object };
+
+injectTapEventPlugin();

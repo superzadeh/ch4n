@@ -1,11 +1,15 @@
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { mount } from 'react-mounter';
+import App from '../imports/ui/app.jsx';
+
 FlowRouter.route('/', {
   action(params) {
-    ReactLayout.render(App, { board: 'diy' });
+    mount(App, { board: 'diy' });
   }
 });
 
 FlowRouter.route('/:board', {
   action(params) {
-    ReactLayout.render(App, { board: params.board });
+    mount(App, { board: params.board });
   }
 });

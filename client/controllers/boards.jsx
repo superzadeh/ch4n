@@ -1,4 +1,8 @@
-const {MenuItem, DropDownMenu} = mui;
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import DropDownMenu from 'material-ui/lib/DropDownMenu';
 
 Boards = React.createClass({
   propTypes: {
