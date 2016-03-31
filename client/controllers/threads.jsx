@@ -49,7 +49,6 @@ Threads = React.createClass({
     if (!this.state.viewingThread) {
       this.loadThreads(this.props.activeBoard);
     } else {
-      console.log('refresh current thread');
       this.refs.currentThread.refresh();
     }
   },

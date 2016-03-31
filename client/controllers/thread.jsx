@@ -24,16 +24,21 @@ Thread = React.createClass({
   },
 
   refresh() {
-    this.loadComments(this.props.board, this.props.threadNumber);
+    // This is bad. Need to add Redux and handle pub/sub instead 
+    if (this.isMounted()) {
+      this.loadComments(this.props.board, this.props.threadNumber);
+    }
   },
 
   loadComments(board, threadNumber) {
-    var self = this;
-    Meteor.call('GetThread', board, threadNumber, function(err, response) {
+    Meteor.call('GetThread', board, threadNumber, (err, response) => {
       if (err) {
         console.log(err);
       } else {
-        self.setState({ posts: response.data.posts });
+        // This is bad. Need to add Redux and handle pub/sub instead 
+        if (this.isMounted()) {
+          this.setState({ posts: response.data.posts });
+        }
       }
     });
   },
