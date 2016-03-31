@@ -49,7 +49,7 @@ export default class App extends Component {
               onBoardChanged={this.boardChangedHandler.bind(this)} />
           </ToolbarGroup>
           <ToolbarGroup float="right">
-            <IconButton onClick={this.goHome}>
+            <IconButton onClick={this.goHome.bind(this)}>
               <FontIcon className="material-icons">home</FontIcon>
             </IconButton>
             <IconButton onClick={this.refresh}>
