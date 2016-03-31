@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Styles from 'material-ui/lib/styles';
@@ -11,39 +11,37 @@ import CardText from 'material-ui/lib/card/card-text';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import Dialog from 'material-ui/lib/dialog';
 
-ThreadCard = React.createClass({
-  propTypes: {
-    thread: React.PropTypes.object,
-    viewThreadHandler: React.PropTypes.func
-  },
+import ImageLoader from './imageLoader.jsx';
 
-  getInitialState() {
-    return {
+export default class ThreadCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       imageLoaded: false,
       imageUrl: this.props.thumbnail,
       open: false
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ imageLoaded: false, imageUrl: nextProps.thumbnail });
-  },
+  }
 
   onImageLoaded() {
     this.setState({ imageLoaded: true });
-  },
+  }
 
   preloader() {
     return <CircularProgress  />
-  },
+  }
 
   togglePreviewImage() {
     this.setState({ open: true });
-  },
+  }
 
   handleClose() {
     this.setState({ open: false });
-  },
+  }
 
   render() {
     const customContentStyle = {
@@ -67,7 +65,7 @@ ThreadCard = React.createClass({
             src={this.props.fullimage}
             wrapper={React.DOM.div}
             preloader={this.preloader}
-            onClick={this.handleClose}>
+            onClick={this.handleClose.bind(this)}>
           </ImageLoader>
         </Dialog>
 
@@ -80,7 +78,7 @@ ThreadCard = React.createClass({
               src={this.props.thumbnail}
               wrapper={React.DOM.div}
               preloader={this.preloader}
-              onClick={this.togglePreviewImage}>
+              onClick={this.togglePreviewImage.bind(this)}>
             </ImageLoader>
           </CardMedia>
 
@@ -89,10 +87,15 @@ ThreadCard = React.createClass({
           </CardText>
 
           <CardActions>
-            <RaisedButton label="View" onClick={this.props.viewThreadHandler}/>
+            <RaisedButton label="View" onClick={this.props.viewThreadHandler.bind(this)}/>
           </CardActions>
         </Card>
       </div>
     );
   }
-});
+};
+
+ThreadCard.propTypes = {
+  thread: React.PropTypes.object,
+  viewThreadHandler: React.PropTypes.func
+};

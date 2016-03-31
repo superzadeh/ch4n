@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { mui } from 'material-ui';
 
 const Status = {
@@ -9,31 +9,18 @@ const Status = {
 };
 
 
-ImageLoader = React.createClass({
-  propTypes: {
-    wrapper: React.PropTypes.func,
-    className: React.PropTypes.string,
-    style: React.PropTypes.object,
-    preloader: React.PropTypes.func,
-    src: React.PropTypes.string,
-    onLoad: React.PropTypes.func,
-    onError: React.PropTypes.func,
-    imgProps: React.PropTypes.object
-  },
+export default class ImageLoader extends Component {
 
-  getDefaultProps() {
-    wrapper: React.DOM.span
-  },
-
-  getInitialState() {
-    return { status: this.props.src ? Status.LOADING : Status.PENDING };
-  },
+  constructor(props) {
+    super(props);
+    this.state = { status: this.props.src ? Status.LOADING : Status.PENDING };
+  }
 
   componentDidMount() {
     if (this.state.status === Status.LOADING) {
       this.createLoader();
     }
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.src !== nextProps.src) {
@@ -41,32 +28,32 @@ ImageLoader = React.createClass({
         status: nextProps.src ? Status.LOADING : Status.PENDING,
       });
     }
-  },
+  }
 
   componentDidUpdate() {
     if (this.state.status === Status.LOADING && !this.img) {
       this.createLoader();
     }
-  },
+  }
 
   componentWillUnmount() {
     this.destroyLoader();
-  },
+  }
 
   getClassName() {
     let className = `imageloader ${this.state.status}`;
     if (this.props.className) className = `${className} ${this.props.className}`;
     return className;
-  },
+  }
 
   createLoader() {
     this.destroyLoader();  // We can only have one loader at a time.
 
     this.img = new Image();
-    this.img.onload = this.handleLoad;
-    this.img.onerror = this.handleError;
+    this.img.onload = this.handleLoad.bind(this);
+    this.img.onerror = this.handleError.bind(this);
     this.img.src = this.props.src;
-  },
+  }
 
   destroyLoader() {
     if (this.img) {
@@ -74,21 +61,21 @@ ImageLoader = React.createClass({
       this.img.onerror = null;
       this.img = null;
     }
-  },
+  }
 
   handleLoad(event) {
     this.destroyLoader();
     this.setState({ status: Status.LOADED });
 
     if (this.props.onLoad) this.props.onLoad(event);
-  },
+  }
 
   handleError(error) {
     this.destroyLoader();
     this.setState({ status: Status.FAILED });
 
     if (this.props.onError) this.props.onError(error);
-  },
+  }
 
   renderImg() {
     const {src, imgProps} = this.props;
@@ -101,7 +88,7 @@ ImageLoader = React.createClass({
     }
 
     return <img {...props} />;
-  },
+  }
 
   render() {
     let wrapperProps = {
@@ -133,4 +120,18 @@ ImageLoader = React.createClass({
 
     return this.props.wrapper(...wrapperArgs);
   }
-});
+};
+
+ImageLoader.propTypes = {
+  wrapper: React.PropTypes.func,
+  className: React.PropTypes.string,
+  style: React.PropTypes.object,
+  preloader: React.PropTypes.func,
+  src: React.PropTypes.string,
+  onLoad: React.PropTypes.func,
+  onError: React.PropTypes.func,
+  imgProps: React.PropTypes.object
+};
+ImageLoader.defaultProps = {
+  wrapper: React.DOM.span
+};

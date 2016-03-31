@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { mui } from 'material-ui';
 
 import RaisedButton from 'material-ui/lib/raised-button';
@@ -12,42 +12,39 @@ import CardText from 'material-ui/lib/card/card-text';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import Dialog from 'material-ui/lib/dialog';
 
-PostCard = React.createClass({
-  propTypes: {
-    post: React.PropTypes.object,
-    viewpostHandler: React.PropTypes.func
-  },
+export default class PostCard extends Component {
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       imageLoaded: false,
       imageUrl: this.props.thumbnail,
       open: false
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.isMounted()) {
       console.log(nextProps.post);
       this.setState({ imageLoaded: false, post: nextProps.post, imageUrl: nextProps.thumbnail });
     }
-  },
+  }
 
   onImageLoaded() {
     this.setState({ imageLoaded: true });
-  },
+  }
 
   preloader() {
     return <CircularProgress  />
-  },
+  }
 
   togglePreviewImage() {
     this.setState({ open: true });
-  },
+  }
 
   handleClose() {
     this.setState({ open: false });
-  },
+  }
 
   render() {
     const customContentStyle = {
@@ -71,7 +68,7 @@ PostCard = React.createClass({
             src={this.props.fullimage}
             wrapper={React.DOM.div}
             preloader={this.preloader}
-            onClick={this.handleClose}>
+            onClick={this.handleClose.bind(this)}>
           </ImageLoader>
         </Dialog>
 
@@ -81,7 +78,7 @@ PostCard = React.createClass({
               src={this.props.thumbnail}
               wrapper={React.DOM.div}
               preloader={this.preloader}
-              onClick={this.togglePreviewImage}>
+              onClick={this.togglePreviewImage.bind(this)}>
             </ImageLoader>
           </CardMedia>
 
@@ -92,4 +89,9 @@ PostCard = React.createClass({
       </div>
     );
   }
-});
+};
+
+PostCard.propTypes = {
+  post: React.PropTypes.object,
+  viewpostHandler: React.PropTypes.func
+};

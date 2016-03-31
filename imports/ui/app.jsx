@@ -46,7 +46,7 @@ export default class App extends Component {
           <ToolbarGroup firstChild={true} float="left">
             <Boards
               activeBoard={this.props.board}
-              onBoardChanged={this.boardChangedHandler} />
+              onBoardChanged={this.boardChangedHandler.bind(this)} />
           </ToolbarGroup>
           <ToolbarGroup float="right">
             <IconButton onClick={this.goHome}>

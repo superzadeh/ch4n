@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import ThreadCard from '../../imports/ui/components/threadCard.jsx';
 
 Threads = React.createClass({
   propTypes: {
