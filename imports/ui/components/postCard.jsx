@@ -12,6 +12,8 @@ import CardText from 'material-ui/lib/card/card-text';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import Dialog from 'material-ui/lib/dialog';
 
+import ImageLoader from './imageLoader.jsx';
+
 export default class PostCard extends Component {
 
   constructor(props) {

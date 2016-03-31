@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 
+import PostCard from '../../imports/ui/components/postCard.jsx';
+
 Thread = React.createClass({
   propTypes: {
     board: React.PropTypes.string,
