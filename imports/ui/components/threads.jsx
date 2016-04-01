@@ -1,30 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import ThreadCard from '../../imports/ui/components/threadCard.jsx';
+import ThreadCard from './threadCard.jsx';
+import Thread from './thread.jsx';
 
-Threads = React.createClass({
-  propTypes: {
-    activeBoard: React.PropTypes.string
-  },
-
-  getInitialState() {
-    return {
+export default class Threads extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
       threads: [],
       viewingThread: false,
       threadNumber: 0
     };
-  },
+  }
 
   componentDidMount() {
     this.loadThreads(this.props.activeBoard);
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.isMounted()) {
       this.loadThreads(nextProps.activeBoard);
     }
-  },
+  }
 
   loadThreads(board) {
     var self = this;
@@ -35,15 +34,15 @@ Threads = React.createClass({
         self.setState({ threads: response.data[0].threads });
       }
     });
-  },
+  }
 
   toggleView(index, thread) {
     this.setState({ threadNumber: thread.no, viewingThread: !this.state.viewingThread });
-  },
+  }
 
   showList() {
     this.setState({ viewingThread: false });
-  },
+  }
 
   refresh() {
     if (!this.state.viewingThread) {
@@ -51,7 +50,7 @@ Threads = React.createClass({
     } else {
       this.refs.currentThread.refresh();
     }
-  },
+  }
 
   render() {
     return (
@@ -76,4 +75,8 @@ Threads = React.createClass({
       </div>
     );
   }
-});
+};
+
+Threads.propTypes = {
+  activeBoard: React.PropTypes.string
+};

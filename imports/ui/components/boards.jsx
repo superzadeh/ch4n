@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 
-Boards = React.createClass({
-  propTypes: {
-    onBoardChanged: React.PropTypes.func
-  },
-  getInitialState() {
-    return { boards: [] };
-  },
+export default class Boards extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { boards: [] };
+  }
+
   componentDidMount() {
     var self = this;
     Meteor.call('GetBoards', function(err, response) {
@@ -24,11 +23,11 @@ Boards = React.createClass({
         });
       }
     });
-  },
+  }
   handleChange(e, index, value) {
     this.props.onBoardChanged(value);
     FlowRouter.go(`/${value}`);
-  },
+  }
   render() {
     return (
       <DropDownMenu value={this.props.activeBoard} onChange={this.handleChange}>
@@ -40,4 +39,8 @@ Boards = React.createClass({
       </DropDownMenu>
     );
   }
-});
+};
+
+Boards.propTypes = {
+  onBoardChanged: React.PropTypes.func
+};

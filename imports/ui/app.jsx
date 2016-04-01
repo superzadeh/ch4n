@@ -10,6 +10,9 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
+import Boards from './components/boards.jsx'
+import Threads from './components/threads.jsx'
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const {ThemeManager, LightRawTheme} = Styles;
@@ -52,7 +55,7 @@ export default class App extends Component {
             <IconButton onClick={this.goHome.bind(this)}>
               <FontIcon className="material-icons">home</FontIcon>
             </IconButton>
-            <IconButton onClick={this.refresh}>
+            <IconButton onClick={this.refresh.bind(this)}>
               <FontIcon className="material-icons">autorenew</FontIcon>
             </IconButton>
           </ToolbarGroup>
