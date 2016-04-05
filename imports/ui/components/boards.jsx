@@ -11,7 +11,7 @@ export default class Boards extends Component {
   }
 
   componentDidMount() {
-    var self = this;
+    let self = this;
     Meteor.call('GetBoards', function(err, response) {
       if (err) {
         console.log(err);

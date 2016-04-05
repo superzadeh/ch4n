@@ -5,7 +5,7 @@ Currently on hold until Meteor 1.3 comes out, which should improve Meteor's test
 as add NPM support (without all the hackery currently going on).
 
 # TODO
-- [ ] Upgrade to Meteor 1.3
+- [X] Upgrade to Meteor 1.3
 - [ ] Enable Travis CI
 - [ ] Add freakin tests
 - [ ] Add Redux and rework existing code

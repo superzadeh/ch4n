@@ -26,7 +26,7 @@ export default class Threads extends Component {
   }
 
   loadThreads(board) {
-    var self = this;
+    let self = this;
     Meteor.call('GetCatalog', board, function(err, response) {
       if (err) {
         console.log(err);
