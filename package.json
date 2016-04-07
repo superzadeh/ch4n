@@ -1,0 +1,35 @@
+{
+  "name": "ch4n",
+  "version": "1.0.0",
+  "description": "4chan client built using Meteor, React and MaterialUI",
+  "main": "",
+  "dependencies": {
+    "material-ui": "^0.14.4",
+    "react": "^0.14.8",
+    "react-addons-pure-render-mixin": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-mounter": "^1.1.0",
+    "react-tap-event-plugin": "^0.2.2",
+    "redux": "^3.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "meteor test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superzadeh/ch4n.git"
+  },
+  "keywords": [
+    "meteor",
+    "react",
+    "material-ui",
+    "4chan"
+  ],
+  "author": "superzadeh",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/superzadeh/ch4n/issues"
+  },
+  "homepage": "https://github.com/superzadeh/ch4n#readme"
+}
