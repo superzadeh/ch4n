@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import ThreadCard from './threadCard.jsx';
-import Thread from './thread.jsx';
+import ThreadCard from '../components/threadCard.jsx';
+import Thread from '../components/thread.jsx';
 
 export default class Threads extends Component {
   

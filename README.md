@@ -1,10 +1,12 @@
 # ch4n
+
 4chan client built using Meteor + React and Material UI.
 
-Currently on hold until Meteor 1.3 comes out, which should improve Meteor's testability as well 
+Currently on hold until Meteor 1.3 comes out, which should improve Meteor's testability as well.
 as add NPM support (without all the hackery currently going on).
 
-# TODO
+## TODO
+
 - [X] Upgrade to Meteor 1.3
 - [ ] Enable Travis CI
 - [ ] Add freakin tests

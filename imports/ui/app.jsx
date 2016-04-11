@@ -10,8 +10,8 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
-import Boards from './components/boards.jsx'
-import Threads from './components/threads.jsx'
+import Boards from './containers/boards.jsx'
+import Threads from './containers/threads.jsx'
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -68,7 +68,10 @@ export default class App extends Component {
   }
 }
 
-App.propTypes = { board: React.PropTypes.string };
+App.propTypes = { 
+  board: React.PropTypes.string, 
+  store: React.PropTypes.Object 
+};
 App.defaultProps = { board: 'diy' };
 App.childContextTypes = { muiTheme: React.PropTypes.object };
 
