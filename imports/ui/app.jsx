@@ -33,13 +33,12 @@ export default class App extends Component {
   }
 
   goHome() {
-    this.refs.threads.showList();
-    this.refresh();
+    this.props.store.dispatch('GO_HOME');
   }
 
   refresh() {
     window.scrollTo(0, 0);
-    this.refs.threads.refresh();
+    this.props.store.dispatch('REFRESH_THREADS');
   }
 
   render() {
@@ -49,13 +48,13 @@ export default class App extends Component {
           <ToolbarGroup firstChild={true} float="left">
             <Boards
               activeBoard={this.props.board}
-              onBoardChanged={this.boardChangedHandler.bind(this)} />
+              onBoardChanged={this.boardChangedHandler.bind(this) } />
           </ToolbarGroup>
           <ToolbarGroup float="right">
-            <IconButton onClick={this.goHome.bind(this)}>
+            <IconButton onClick={this.goHome.bind(this) }>
               <FontIcon className="material-icons">home</FontIcon>
             </IconButton>
-            <IconButton onClick={this.refresh.bind(this)}>
+            <IconButton onClick={this.refresh.bind(this) }>
               <FontIcon className="material-icons">autorenew</FontIcon>
             </IconButton>
           </ToolbarGroup>
@@ -68,9 +67,9 @@ export default class App extends Component {
   }
 }
 
-App.propTypes = { 
-  board: React.PropTypes.string, 
-  store: React.PropTypes.Object 
+App.propTypes = {
+  board: React.PropTypes.string,
+  store: React.PropTypes.Object
 };
 App.defaultProps = { board: 'diy' };
 App.childContextTypes = { muiTheme: React.PropTypes.object };

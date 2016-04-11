@@ -10,17 +10,11 @@ export const refreshThreads = () => {
   }
 };
 
-export const refreshThread = (id) => {
-  return {
-    type: 'REFRESH_THREAD',
-    id
-  }
-};
-
-export const showThread = (id) => {
+export const showThread = (id, board) => {
   return {
     type: 'SHOW_THREAD',
-    id
+    id,
+    board
   }
 };
 

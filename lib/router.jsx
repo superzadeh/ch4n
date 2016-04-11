@@ -1,6 +1,7 @@
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { mount } from 'react-mounter';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux'
 import App from '../imports/ui/app.jsx';
 import chanApp from '../imports/ui/reducers/chanApp.js';
 

@@ -17,7 +17,7 @@ const boardsReducer = (state = [], action) => {
       });
       break;
     case 'NAVIGATE_TO_BOARD':
-      return state;
+      return [...state, {currentBoard : action.board }];
     default:
       return state;
   }
@@ -27,14 +27,22 @@ const boardsReducer = (state = [], action) => {
 const threadsReducer = (state = [], action) => {
   switch (action.type) {
     case 'REFRESH_THREADS':
-
-      break;
-    case 'REFRESH_THREAD':
-
+      Meteor.call('GetCatalog', action.board, (err, response) => {
+        if (err) {
+          console.log(err);
+        } else {
+          return [...state, { threads: response.data[0].threads }];
+        }
+      });
       break;
     case 'SHOW_THREAD':
-
-      break;
+      Meteor.call('GetThread', action.board, action.id, (err, response) => {
+        if (err) {
+          console.log(err);
+        } else {
+          return [...state, { posts: response.data.posts }];
+        }
+      });
     default:
       return state;
   }
