@@ -4,6 +4,7 @@
   "description": "4chan client built using Meteor, React and MaterialUI",
   "main": "",
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.14.4",
     "react": "^0.14.8",
     "react-addons-pure-render-mixin": "^0.14.8",
@@ -11,7 +12,9 @@
     "react-mounter": "^1.1.0",
     "react-redux": "^4.4.2",
     "react-tap-event-plugin": "^0.2.2",
-    "redux": "^3.3.1"
+    "redux": "^3.3.1",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.0.1"
   },
   "devDependencies": {},
   "scripts": {

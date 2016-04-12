@@ -11,7 +11,7 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
-import {refreshBoards, goHome, refreshThreads, setCurrentBoard} from './actions/actions';
+import {requestBoards, goHome, requestThreads, setCurrentBoard} from './actions/actions';
 
 import Boards from './containers/boards.jsx'
 import Threads from './containers/threads.jsx'
@@ -22,7 +22,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.props.dispatch(refreshBoards());
     this.state = { open: false };
   }
 
@@ -38,31 +37,26 @@ class App extends Component {
     this.props.dispatch(goHome());
   }
 
-  refresh() {
-    window.scrollTo(0, 0);
-    this.props.dispatch(refreshThreads());
-  }
-
   render() {
     return (
       <AppCanvas>
         <Toolbar className="fixed-nav-bar">
           <ToolbarGroup firstChild={true} float="left">
             <Boards
-              activeBoard={this.props.store.currentBoard}
+              activeBoard={this.props.currentBoard}
               onBoardChanged={this.boardChangedHandler.bind(this) } />
           </ToolbarGroup>
           <ToolbarGroup float="right">
             <IconButton onClick={this.goHome.bind(this) }>
               <FontIcon className="material-icons">home</FontIcon>
             </IconButton>
-            <IconButton onClick={this.refresh.bind(this) }>
+            <IconButton onClick={this.props.refresh }>
               <FontIcon className="material-icons">autorenew</FontIcon>
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
         <div className="app-container">
-          <Threads activeBoard={this.props.store.currentBoard} ref="threads"/>
+          <Threads activeBoard={this.props.currentBoard} ref="threads"/>
         </div>
       </AppCanvas>
     );
@@ -72,6 +66,19 @@ class App extends Component {
 App.propTypes = { board: React.PropTypes.string };
 App.childContextTypes = { muiTheme: React.PropTypes.object };
 
-App = connect()(App);
+const mapStateToProps = (state) => {
+  return {
+    currentBoard: state.boards.current
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    refresh: () => {
+      window.scrollTo(0, 0);
+      dispatch(requestThreads());
+    }
+  }
+};
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default App;
+export default AppContainer;
