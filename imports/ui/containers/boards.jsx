@@ -17,11 +17,11 @@ class Boards extends Component {
     this.props.dispatch(Actions.fetchBoards());
   }
 
-  handleBoardChange(e) {
+  handleBoardChange(e, index, value) {
     e.preventDefault();
 
     window.scrollTo(0, 0);
-    this.props.dispatch(setCurrentBoard(board));
+    this.props.dispatch(Actions.setCurrentBoard(value));
   }
 
   render() {

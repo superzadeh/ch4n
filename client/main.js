@@ -31,5 +31,6 @@ Meteor.startup(() => {
     <Provider store={store}>
       <App />
     </Provider>, document.getElementById('render-target'));
-  injectTapEventPlugin();
 });
+
+injectTapEventPlugin();
