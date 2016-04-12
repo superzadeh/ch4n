@@ -11,6 +11,8 @@ export const GO_HOME = 'GO_HOME'
 export const INVALIDATE_THREADS = 'INVALIDATE_THREADS'
 export const SHOW_THREAD = 'SHOW_THREAD'
 export const SET_CURRENT_THREAD = 'SET_CURRENT_THREAD'
+export const REQUEST_THREADS = 'REQUEST_THREADS'
+export const RECEIVE_THREADS = 'RECEIVE_THREADS'
 
 /*
  * action creators
@@ -47,6 +49,18 @@ export function goHome() {
   }
 }
 
+export function requestThreads() {
+  return {
+    type: REQUEST_THREADS
+  }
+}
+
+export function receiveThreads(json) {
+  return {
+    type: RECEIVE_THREADS,
+    threads: json.data[0].threads
+  }
+}
 export function invalidateThreads() {
   return {
     type: INVALIDATE_THREADS
@@ -71,11 +85,31 @@ export function setCurrentThread(thread) {
 /* 
  * Thunks
  */
+function shouldFetchBoards(state, subreddit) {
+  const boards = state.boards;
+  if (!boards.list) {
+    return true;
+  } else if (boards.isFetching) {
+    return false;
+  } else {
+    return boards.didInvalidate;
+  }
+}
+
 export function fetchBoards() {
   return function(dispatch) {
     dispatch(requestBoards());
     return Meteor.promise('GetBoards')
       .then((response) => dispatch(receiveBoards(response)))
+      .catch((err) => console.log(err));
+  }
+}
+
+export function fetchThreads(board) {
+  return function(dispatch) {
+    dispatch(requestThreads());
+    return Meteor.promise('GetCatalog', board)
+      .then((response) => dispatch(receiveThreads(response)))
       .catch((err) => console.log(err));
   }
 }

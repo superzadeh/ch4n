@@ -11,7 +11,7 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
-import {requestBoards, goHome, requestThreads, setCurrentBoard} from './actions/actions';
+import {fetchThreads, goHome, setCurrentBoard} from './actions/actions';
 
 import Boards from './containers/boards.jsx'
 import Threads from './containers/threads.jsx'
@@ -22,19 +22,29 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: false };
+    this.handleRefresh = this.handleRefresh.bind(this);
+    this.goHome = this.goHome.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentBoard !== this.props.currentBoard) {
+      const { dispatch, selectedSubreddit } = nextProps
+      dispatch(fetchThreads(nextProps.currentBoard));
+    }
   }
 
   getChildContext() {
     return { muiTheme: ThemeManager.getMuiTheme(LightRawTheme) };
   }
 
-  boardChangedHandler(boardName) {
-    this.props.dispatch(setCurrentBoard(boardName));
-  }
-
   goHome() {
     this.props.dispatch(goHome());
+  }
+
+  handleRefresh(e) {
+    e.preventDefault();
+    window.scrollTo(0, 0);
+    this.props.dispatch(fetchThreads(this.props.currentBoard));
   }
 
   render() {
@@ -43,14 +53,13 @@ class App extends Component {
         <Toolbar className="fixed-nav-bar">
           <ToolbarGroup firstChild={true} float="left">
             <Boards
-              activeBoard={this.props.currentBoard}
-              onBoardChanged={this.boardChangedHandler.bind(this) } />
+              activeBoard={this.props.currentBoard} />
           </ToolbarGroup>
           <ToolbarGroup float="right">
-            <IconButton onClick={this.goHome.bind(this) }>
+            <IconButton onClick={this.goHome}>
               <FontIcon className="material-icons">home</FontIcon>
             </IconButton>
-            <IconButton onClick={this.props.refresh }>
+            <IconButton onClick={this.handleRefresh}>
               <FontIcon className="material-icons">autorenew</FontIcon>
             </IconButton>
           </ToolbarGroup>
@@ -71,14 +80,5 @@ const mapStateToProps = (state) => {
     currentBoard: state.boards.current
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    refresh: () => {
-      window.scrollTo(0, 0);
-      dispatch(requestThreads());
-    }
-  }
-};
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default AppContainer;
+export default connect(mapStateToProps)(App);

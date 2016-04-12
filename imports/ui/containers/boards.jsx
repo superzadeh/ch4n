@@ -1,37 +1,33 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { connect } from 'react-redux';
 
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 
-export default class Boards extends Component {
+import * as Actions from '../actions/actions';
+
+class Boards extends Component {
   constructor(props) {
     super(props);
-    this.state = { boards: [] };
+    this.handleBoardChange = this.handleBoardChange.bind(this);
   }
 
   componentDidMount() {
-    let self = this;
-    Meteor.call('GetBoards', function(err, response) {
-      if (err) {
-        console.log(err);
-      } else {
-        self.setState({
-          boards: _.sortBy(response.data.boards, (b) => {
-            return b.title;
-          })
-        });
-      }
-    });
+    this.props.dispatch(Actions.fetchBoards());
   }
-  handleChange(e, index, value) {
-    this.props.onBoardChanged(value);
-    FlowRouter.go(`/${value}`);
+
+  handleBoardChange(e) {
+    e.preventDefault();
+
+    window.scrollTo(0, 0);
+    this.props.dispatch(setCurrentBoard(board));
   }
+
   render() {
     return (
-      <DropDownMenu value={this.props.activeBoard} onChange={this.handleChange}>
-        {this.state.boards.map((board, i) => {
+      <DropDownMenu value={this.props.activeBoard} onChange={this.handleBoardChange}>
+        {this.props.boards.map((board, i) => {
           return (
             <MenuItem value={board.board} primaryText={board.title} key={i}></MenuItem>
           );
@@ -41,6 +37,11 @@ export default class Boards extends Component {
   }
 };
 
-Boards.propTypes = {
-  onBoardChanged: React.PropTypes.func
+const mapStateToProps = (state) => {
+  return {
+    activeBoard: state.boards.current,
+    boards: state.boards.list
+  };
 };
+
+export default connect(mapStateToProps)(Boards);

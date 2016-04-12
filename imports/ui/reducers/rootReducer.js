@@ -37,10 +37,18 @@ const selectThread = (state = initialState.threads.current, action) => {
 const boards = (state = initialState.boards, action) => {
   switch (action.type) {
     case Actions.INVALIDATE_BOARDS:
-      return state;
+      return Object.assign({}, state, {
+        didInvalidate: true
+      });
+    case Actions.REQUEST_BOARDS:
+      return Object.assign({}, state, {
+        didInvalidate: false,
+        isFetching: true
+      });
     case Actions.RECEIVE_BOARDS:
       return Object.assign({}, state, {
-        list: action.boards
+        list: action.boards,
+        isFetching: false
       });
     default:
       return state;
@@ -50,13 +58,19 @@ const boards = (state = initialState.boards, action) => {
 const threads = (state = initialState.threads, action) => {
   switch (action.type) {
     case Actions.INVALIDATE_THREADS:
-    // Meteor.call('GetThread', state.currentThread, (err, response) => {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     return [...state, { threads: response.data[0].threads }];
-    //   }
-    // });
+      return Object.assign({}, state, {
+        didInvalidate: true
+      });
+    case Actions.REQUEST_THREADS:
+      return Object.assign({}, state, {
+        didInvalidate: false,
+        isFetching: true
+      });
+    case Actions.RECEIVE_THREADS:
+      return Object.assign({}, state, {
+        list: action.threads,
+        isFetching: false
+      });
     case Actions.SHOW_THREAD:
     // Meteor.call('GetThread', action.thread, action.id, (err, response) => {
     //   if (err) {
