@@ -1,72 +1,70 @@
 import { combineReducers } from 'redux';
 import { Meteor } from 'meteor/meteor';
+import * as Actions from '../actions/actions';
 
-const boardsReducer = (state = [], action) => {
+const initialState = {
+  boards: {
+    list: [],
+    current: 'diy'
+  },
+  threads: {
+    list: [],
+    current: ''
+  },
+}
+
+const boards = (state = initialState.boards, action) => {
   switch (action.type) {
-    case 'REFRESH_BOARDS':
-      Meteor.call('GetBoards', function(err, response) {
-        if (err) {
-          console.log(err);
-        } else {
-          return [...state, {
-            boards: _.sortBy(response.data.boards, (b) => {
-              return b.title;
-            })
-          }];
-        }
-      });
-      break;
-    case 'NAVIGATE_TO_BOARD':
-      return [...state, {currentBoard : action.board }];
+    case Actions.REFRESH_BOARDS:
+      // Meteor.call('GetBoards', function(err, response) {
+      //   if (err) {
+      //     console.log(err);
+      //   } else {
+      //     return [
+      //       ...state,
+      //       {
+      //         boards: _.sortBy(response.data.boards, (b) => {
+      //           return b.title;
+      //         })
+      //       }];
+      //   }
+      // });
+      return state;
+    case Actions.SET_CURRENT_BOARD:
+      return Object.assign({}, state, { current: action.board });
     default:
       return state;
   }
-  return state;
 };
 
-const threadsReducer = (state = [], action) => {
+const threads = (state = initialState.threads, action) => {
   switch (action.type) {
-    case 'REFRESH_THREADS':
-      Meteor.call('GetCatalog', action.board, (err, response) => {
-        if (err) {
-          console.log(err);
-        } else {
-          return [...state, { threads: response.data[0].threads }];
-        }
-      });
-      break;
-    case 'SHOW_THREAD':
-      Meteor.call('GetThread', action.board, action.id, (err, response) => {
-        if (err) {
-          console.log(err);
-        } else {
-          return [...state, { posts: response.data.posts }];
-        }
-      });
+    case Actions.REFRESH_THREADS:
+    // Meteor.call('GetThread', state.currentThread, (err, response) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     return [...state, { threads: response.data[0].threads }];
+    //   }
+    // });
+    case Actions.SHOW_THREAD:
+    // Meteor.call('GetThread', action.thread, action.id, (err, response) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     return [...state, { posts: response.data.posts }];
+    //   }
+    // });
+    case Actions.SET_CURRENT_THREAD:
+      return Object.assign({}, state, { current: action.thread });
     default:
       return state;
   }
-  return state;
-};
-
-const threadReducer = (state = [], action) => {
-  switch (action.type) {
-    case 'EXPAND_IMAGE':
-
-      break;
-    case 'COLLAPSE_IMAGE':
-
-      break;
-    default:
-      return state;
-  }
-  return state;
 };
 
 const chanApp = combineReducers({
-  boardsReducer,
-  threadsReducer,
-  threadReducer
+  boards,
+  threads
 });
 
 export default chanApp;

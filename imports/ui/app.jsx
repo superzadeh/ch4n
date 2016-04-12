@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import AppCanvas from 'material-ui/lib/app-canvas';
 import AppBar from 'material-ui/lib/app-bar';
@@ -10,17 +11,18 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
+import {refreshBoards, goHome, refreshThreads, setCurrentBoard} from './actions/actions';
+
 import Boards from './containers/boards.jsx'
 import Threads from './containers/threads.jsx'
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 const {ThemeManager, LightRawTheme} = Styles;
 
-export default class App extends Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
+    this.props.dispatch(refreshBoards());
     this.state = { open: false };
   }
 
@@ -29,16 +31,16 @@ export default class App extends Component {
   }
 
   boardChangedHandler(boardName) {
-    this.setState({ activeBoard: boardName });
+    this.props.dispatch(setCurrentBoard(boardName));
   }
 
   goHome() {
-    this.props.store.dispatch('GO_HOME');
+    this.props.dispatch(goHome());
   }
 
   refresh() {
     window.scrollTo(0, 0);
-    this.props.store.dispatch('REFRESH_THREADS');
+    this.props.dispatch(refreshThreads());
   }
 
   render() {
@@ -47,7 +49,7 @@ export default class App extends Component {
         <Toolbar className="fixed-nav-bar">
           <ToolbarGroup firstChild={true} float="left">
             <Boards
-              activeBoard={this.props.board}
+              activeBoard={this.props.store.currentBoard}
               onBoardChanged={this.boardChangedHandler.bind(this) } />
           </ToolbarGroup>
           <ToolbarGroup float="right">
@@ -60,18 +62,16 @@ export default class App extends Component {
           </ToolbarGroup>
         </Toolbar>
         <div className="app-container">
-          <Threads activeBoard={this.props.board} ref="threads"/>
+          <Threads activeBoard={this.props.store.currentBoard} ref="threads"/>
         </div>
       </AppCanvas>
     );
   }
 }
 
-App.propTypes = {
-  board: React.PropTypes.string,
-  store: React.PropTypes.Object
-};
-App.defaultProps = { board: 'diy' };
+App.propTypes = { board: React.PropTypes.string };
 App.childContextTypes = { muiTheme: React.PropTypes.object };
 
-injectTapEventPlugin();
+App = connect()(App);
+
+export default App;
