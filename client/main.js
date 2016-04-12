@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import thunkMiddleware from 'redux-thunk';
@@ -16,10 +16,14 @@ Meteor.startup(() => {
 
   let store = createStore(
     rootReducer,
-    applyMiddleware(
-      thunkMiddleware,
-      loggerMiddleware
-    ));
+    compose(
+      applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware
+      ),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  );
 
   store.dispatch(Actions.fetchBoards());
 
