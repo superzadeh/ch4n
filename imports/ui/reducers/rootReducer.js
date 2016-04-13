@@ -13,19 +13,18 @@ const initialState = {
     isFetching: false,
     didInvalidate: false,
     list: [],
-    current: ''
+    current: {
+      id: 0,
+      posts: [],
+      isFetching: false
+    }
   },
 }
 
 const boards = (state = initialState.boards, action) => {
   switch (action.type) {
-    case Actions.INVALIDATE_BOARDS:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      });
     case Actions.REQUEST_BOARDS:
       return Object.assign({}, state, {
-        didInvalidate: false,
         isFetching: true
       });
     case Actions.RECEIVE_BOARDS:
@@ -44,13 +43,8 @@ const boards = (state = initialState.boards, action) => {
 
 const threads = (state = initialState.threads, action) => {
   switch (action.type) {
-    case Actions.INVALIDATE_THREADS:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      });
     case Actions.REQUEST_THREADS:
       return Object.assign({}, state, {
-        didInvalidate: false,
         isFetching: true
       });
     case Actions.RECEIVE_THREADS:
@@ -58,22 +52,36 @@ const threads = (state = initialState.threads, action) => {
         list: action.threads,
         isFetching: false
       });
+    case Actions.REQUEST_POSTS:
+    case Actions.RECEIVE_POSTS:
     case Actions.SET_CURRENT_THREAD:
-      return Object.assign({}, state, {
-        current: action.thread
-      });
-    case Actions.SHOW_THREAD:
-    // Meteor.call('GetThread', action.thread, action.id, (err, response) => {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     return [...state, { posts: response.data.posts }];
-    //   }
-    // });
+     return Object.assign({}, state, {
+        current: threadReducer(state.current, action)
+      }); 
     default:
       return state;
   }
 };
+
+const threadReducer = (state = initialState.threads.current, action) => {
+  switch (action.type) {
+    case Actions.REQUEST_POSTS:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+    case Actions.RECEIVE_POSTS:
+      return Object.assign({}, state, {
+        posts: action.posts,
+        isFetching: false
+      });
+    case Actions.SET_CURRENT_THREAD:
+      return Object.assign({}, state, {
+          id: action.threadId
+      });
+    default:
+      return state;
+  }
+}
 
 const rootReducer = combineReducers({
   boards,

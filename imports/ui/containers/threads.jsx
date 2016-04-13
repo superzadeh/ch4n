@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ThreadCard from '../components/threadCard.jsx';
 import Thread from '../components/thread.jsx';
 
-import { fetchThreads } from '../actions/actions';
+import { fetchThreads, setCurrentThread } from '../actions/actions';
 
 
 export default class Threads extends Component {
@@ -14,7 +14,6 @@ export default class Threads extends Component {
     super(props);
     this.state = {
       viewingThread: false,
-      threadNumber: 0
     };
   }
 
@@ -29,7 +28,8 @@ export default class Threads extends Component {
   }
 
   toggleView(index, thread) {
-    this.setState({ threadNumber: thread.no, viewingThread: !this.state.viewingThread });
+    this.props.dispatch(setCurrentThread(thread.no));
+    this.setState({ viewingThread: !this.state.viewingThread });
   }
 
   showList() {
@@ -38,7 +38,7 @@ export default class Threads extends Component {
 
   refresh() {
     if (!this.state.viewingThread) {
-      this.props.dispatch(fetchThreads(this.props.activeBoard));
+      this.props.dispatch(fetchThreads(this.props.currentThread));
     } else {
       this.refs.currentThread.refresh();
     }
@@ -49,9 +49,7 @@ export default class Threads extends Component {
       <div className="threadCardsContainer">
         {(() => {
           if (this.state.viewingThread) {
-            return (<Thread board={this.props.activeBoard}
-              threadNumber={this.state.threadNumber}
-              ref="currentThread" />);
+            return (<Thread threadNumber={this.props.currentThread.id} ref="currentThread" />);
           } else {
             return this.props.threads.map((thread, i) => {
               return (

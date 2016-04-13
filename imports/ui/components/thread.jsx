@@ -1,56 +1,61 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { connect } from 'react-redux';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 
+import { fetchPosts } from '../actions/actions';
 import PostCard from './postCard.jsx';
 
 export default class Thread extends Component {
   constructor(props) {
     super(props);
-    this.state = { posts: [] };
   }
 
   componentDidMount() {
-    this.refresh();
+    this.loadComments();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadComments(nextProps.board, nextProps.threadNumber);
+    if(nextProps.thread.id !== this.props.thread.id) {
+      this.props.dispatch(fetchPosts(this.props.currentBoard, nextProps.thread.id));
+    }
   }
-
-  refresh() {
-    this.loadComments(this.props.board, this.props.threadNumber);
-  }
-
-  loadComments(board, threadNumber) {
-    Meteor.call('GetThread', board, threadNumber, (err, response) => {
-      if (err) {
-        console.log(err);
-      } else {
-        this.setState({ posts: response.data.posts });
-      }
-    });
+  
+  loadComments() {
+    this.props.dispatch(fetchPosts(this.props.currentBoard, this.props.thread.id));
   }
 
   render() {
-    return (
-      <div>
-        {this.state.posts.map((post, i) => {
-          return (
-            <PostCard key={'post' + i}
-              ref={'post' + i}
-              post={post}
-              thumbnail={`http://t.4cdn.org/${this.props.board}/${post.tim}s.jpg`}
-              fullimage={`http://t.4cdn.org/${this.props.board}/${post.tim}${post.ext}`} />);
-        })
-        }
-      </div>
-    );
+    if(this.props.thread.posts)
+    {
+      return (
+        <div>
+          {this.props.thread.posts.map((post, i) => {
+            return (
+              <PostCard key={'post' + i}
+                ref={'post' + i}
+                post={post}
+                thumbnail={`http://t.4cdn.org/${this.props.board}/${post.tim}s.jpg`}
+                fullimage={`http://t.4cdn.org/${this.props.board}/${post.tim}${post.ext}`} />);
+          })
+          }
+        </div>
+      );
+    }
+    return (<div></div>);
   }
 };
 
 Thread.propTypes = {
-  board: React.PropTypes.string,
-  threadNumber: React.PropTypes.number
+  thread: React.PropTypes.object,
 };
+
+const mapStateToProps = (state) => {
+  return {
+    thread: state.threads.current,
+    currentBoard : state.boards.current
+  };
+};
+
+export default connect(mapStateToProps)(Thread);
