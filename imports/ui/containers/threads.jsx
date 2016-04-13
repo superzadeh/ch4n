@@ -1,39 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { connect } from 'react-redux';
 
 import ThreadCard from '../components/threadCard.jsx';
 import Thread from '../components/thread.jsx';
+
+import { fetchThreads } from '../actions/actions';
+
 
 export default class Threads extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      threads: [],
       viewingThread: false,
       threadNumber: 0
     };
   }
 
   componentDidMount() {
-    this.loadThreads(this.props.activeBoard);
+    this.props.dispatch(fetchThreads(this.props.activeBoard));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.isMounted()) {
-      this.loadThreads(nextProps.activeBoard);
-    }
-  }
-
-  loadThreads(board) {
-    let self = this;
-    Meteor.call('GetCatalog', board, function(err, response) {
-      if (err) {
-        console.log(err);
-      } else {
-        self.setState({ threads: response.data[0].threads });
-      }
-    });
+    if (nextProps.activeBoard !== this.props.activeBoard) {
+      this.props.dispatch(fetchThreads(nextProps.activeBoard));
+    }  
   }
 
   toggleView(index, thread) {
@@ -46,7 +38,7 @@ export default class Threads extends Component {
 
   refresh() {
     if (!this.state.viewingThread) {
-      this.loadThreads(this.props.activeBoard);
+      this.props.dispatch(fetchThreads(this.props.activeBoard));
     } else {
       this.refs.currentThread.refresh();
     }
@@ -61,7 +53,7 @@ export default class Threads extends Component {
               threadNumber={this.state.threadNumber}
               ref="currentThread" />);
           } else {
-            return this.state.threads.map((thread, i) => {
+            return this.props.threads.map((thread, i) => {
               return (
                 <ThreadCard key={'thread' + i}
                   ref={'thread' + i}
@@ -80,3 +72,13 @@ export default class Threads extends Component {
 Threads.propTypes = {
   activeBoard: React.PropTypes.string
 };
+
+const mapStateToProps = (state) => {
+  return {
+    currentThread: state.threads.current,
+    threads: state.threads.list,
+    activeBoard: state.boards.current
+  };
+};
+
+export default connect(mapStateToProps)(Threads);

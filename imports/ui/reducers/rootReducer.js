@@ -17,23 +17,6 @@ const initialState = {
   },
 }
 
-const selectBoard = (state = initialState.boards.current, action) => {
-  switch (action.type) {
-    case Actions.SET_CURRENT_BOARD:
-      return action.board;
-    default:
-      return state;
-  }
-}
-const selectThread = (state = initialState.threads.current, action) => {
-  switch (action.type) {
-    case Actions.SET_CURRENT_THREAD:
-      return action.thread;
-    default:
-      return state;
-  }
-}
-
 const boards = (state = initialState.boards, action) => {
   switch (action.type) {
     case Actions.INVALIDATE_BOARDS:
@@ -49,6 +32,10 @@ const boards = (state = initialState.boards, action) => {
       return Object.assign({}, state, {
         list: action.boards,
         isFetching: false
+      });
+    case Actions.SET_CURRENT_BOARD:
+      return Object.assign({}, state, {
+        current: action.board
       });
     default:
       return state;
@@ -71,6 +58,10 @@ const threads = (state = initialState.threads, action) => {
         list: action.threads,
         isFetching: false
       });
+    case Actions.SET_CURRENT_THREAD:
+      return Object.assign({}, state, {
+        current: action.thread
+      });
     case Actions.SHOW_THREAD:
     // Meteor.call('GetThread', action.thread, action.id, (err, response) => {
     //   if (err) {
@@ -86,9 +77,7 @@ const threads = (state = initialState.threads, action) => {
 
 const rootReducer = combineReducers({
   boards,
-  threads,
-  selectBoard,
-  selectThread
+  threads
 });
 
 export default rootReducer;

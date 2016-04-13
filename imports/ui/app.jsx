@@ -28,8 +28,7 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentBoard !== this.props.currentBoard) {
-      const { dispatch, selectedSubreddit } = nextProps
-      dispatch(fetchThreads(nextProps.currentBoard));
+      this.props.dispatch(fetchThreads(nextProps.currentBoard));
     }
   }
 

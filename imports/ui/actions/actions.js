@@ -85,7 +85,7 @@ export function setCurrentThread(thread) {
 /* 
  * Thunks
  */
-function shouldFetchBoards(state, subreddit) {
+function shouldFetchBoards(state) {
   const boards = state.boards;
   if (!boards.list) {
     return true;
