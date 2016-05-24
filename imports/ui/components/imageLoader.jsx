@@ -87,7 +87,7 @@ export default class ImageLoader extends Component {
       }
     }
 
-    return <img {...props} />;
+    return <img {...props} alt="ch4n"/>;
   }
 
   render() {
