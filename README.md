@@ -10,7 +10,7 @@ as add NPM support (without all the hackery currently going on).
 - [X] Upgrade to Meteor 1.3
 - [ ] Enable Travis CI
 - [ ] Add freakin tests
-- [ ] Add Redux and rework existing code
+- [X] Add Redux and rework existing code (WIP)
 - [ ] Fix desktop layout issues
 - [X] Deploy on ~~Galaxy~~ Heroku & MLab
 - [ ] Update the navigation to a "bottom" action bar, as per the updated Material UI guidelines
